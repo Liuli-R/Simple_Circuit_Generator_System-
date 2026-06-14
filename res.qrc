@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Cpp_Practice_Picture/Bulb.png</file>
+    </qresource>
+</RCC>

@@ -15,6 +15,14 @@ MainWindow::MainWindow(QWidget *parent)
     circle->setFlag(QGraphicsItem::ItemIsSelectable);
     QGraphicsView *view=new QGraphicsView(scene,this);
     setCentralWidget(view);
+
+    addToolBar(Qt::LeftToolBarArea,ui->toolBar);
+    ui->toolBar->setMovable(false);
+
+    QAction *bulbAction=new QAction(QIcon(":/Cpp_Practice_Picture/Bulb.png"),"小灯泡",this);
+    ui->toolBar->addAction(bulbAction);
+    ui->toolBar->setIconSize(QSize(60,40));
+    ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 }
 
 MainWindow::~MainWindow()
