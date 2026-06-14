@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->toolBar->addAction(bulbAction);
     ui->toolBar->setIconSize(QSize(60,40));
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    ui->toolBar->setFixedWidth(90);
+    ui->toolBar->addSeparator();
 }
 
 MainWindow::~MainWindow()
