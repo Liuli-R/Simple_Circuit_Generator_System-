@@ -1,5 +1,11 @@
 <RCC>
     <qresource prefix="/">
         <file>Cpp_Practice_Picture/Bulb.png</file>
+        <file>Cpp_Practice_Picture/Switch.png</file>
+        <file>Cpp_Practice_Picture/Battery.png</file>
+        <file>Cpp_Practice_Picture/ammeter.png</file>
+        <file>Cpp_Practice_Picture/voltmeter 0-3v.png</file>
+        <file>Cpp_Practice_Picture/voltmeter 0-15v.png</file>
+        <file>Cpp_Practice_Picture/resistor.png</file>
     </qresource>
 </RCC>

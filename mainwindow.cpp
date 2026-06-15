@@ -23,8 +23,39 @@ MainWindow::MainWindow(QWidget *parent)
     ui->toolBar->addAction(bulbAction);
     ui->toolBar->setIconSize(QSize(60,40));
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    ui->toolBar->setFixedWidth(90);
     ui->toolBar->addSeparator();
+
+    QAction *switchAction=new QAction(QIcon(":/Cpp_Practice_Picture/Switch.png"),"开关",this);
+    ui->toolBar->addAction(switchAction);
+    ui->toolBar->setIconSize(QSize(60,40));
+    ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    ui->toolBar->addSeparator();
+
+    QAction *batteryAction=new QAction(QIcon(":/Cpp_Practice_Picture/Battery.png"),"电源",this);
+    ui->toolBar->addAction(batteryAction);
+    ui->toolBar->setIconSize(QSize(60,40));
+    ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    ui->toolBar->addSeparator();
+
+    QAction *amaterAction=new QAction(QIcon(":/Cpp_Practice_Picture/ammeter.png"),"电流表",this);
+    ui->toolBar->addAction(amaterAction);
+    ui->toolBar->setIconSize(QSize(60,40));
+    ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    ui->toolBar->addSeparator();
+
+    QAction *voltmeterAction=new QAction(QIcon(":/Cpp_Practice_Picture/voltmeter 0-3v.png"),"电压表",this);
+    ui->toolBar->addAction(voltmeterAction);
+    ui->toolBar->setIconSize(QSize(60,40));
+    ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    ui->toolBar->addSeparator();
+
+    QAction *resistorAction=new QAction(QIcon(":/Cpp_Practice_Picture/resistor.png"),"电阻",this);
+    ui->toolBar->addAction(resistorAction);
+    ui->toolBar->setIconSize(QSize(60,40));
+    ui->toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    ui->toolBar->addSeparator();
+
+    ui->toolBar->setFixedWidth(90);
 }
 
 MainWindow::~MainWindow()
