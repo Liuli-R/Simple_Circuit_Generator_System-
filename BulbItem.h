@@ -1,7 +1,8 @@
 #ifndef BULBITEM_H
 #define BULBITEM_H
 
-class BulbItem
+#include "ComponentItem.h"
+class BulbItem:public ComponentItem
 {
     public:
         BulbItem(int BulbId,QGraphicsItem *parent=nullptr);
