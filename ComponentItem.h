@@ -3,7 +3,8 @@
 
 #include <QGraphicsItem>
 
-class ComponentItem
+//公有继承QGraphicsItem由图形条目到元器件条目
+class ComponentItem:public QGraphicsItem
 {
     public:
         ComponentItem(int componentId,QGraphicsItem *parent=nullptr);
@@ -16,6 +17,12 @@ class ComponentItem
         //用来设置元器件所对应左端点的场景位置
         QPointF rightPointScenePos() const;
         //用来设置元器件所对应右端点的场景位置
+        //用来重写鼠标按下选中事件来配合更新鼠标图标
+        void mousePressEvent(QGraphicsSceneMouseEvent *event);
+        void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
+    protected:
+        void drawTerminals(QPainter *painter) const;
 
     private:
         int id;
