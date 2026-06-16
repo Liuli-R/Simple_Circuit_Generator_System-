@@ -11,15 +11,15 @@ class ComponentItem:public QGraphicsItem
         //构造函数用来绘制所对应元器件的对象
         int getComponentId() const;
         //用来获取当前元器件id的访问器函数
-        QRectF boundingRect() const;
+        QRectF boundingRect() const override;
         //用来限制所画元器件图形的矩形限制框
         QPointF leftPointScenePos() const;
         //用来设置元器件所对应左端点的场景位置
         QPointF rightPointScenePos() const;
         //用来设置元器件所对应右端点的场景位置
         //用来重写鼠标按下选中事件来配合更新鼠标图标
-        void mousePressEvent(QGraphicsSceneMouseEvent *event);
-        void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+        void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+        void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
     protected:
         void drawTerminals(QPainter *painter) const;
