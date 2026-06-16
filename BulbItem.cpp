@@ -61,7 +61,7 @@ void BulbItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     font.setPointSize(10);
     font.setBold(true);
     painter->setFont(font);
-    painter->drawText(QRectF(-55, 36, 110, 20), Qt::AlignCenter, QString("Bulb #%1").arg(getComponentId()));
+    painter->drawText(QRectF(-55, 36, 110, 20), Qt::AlignCenter, QString("小灯泡 #%1").arg(getComponentId()));
     //原理同前
 }
 

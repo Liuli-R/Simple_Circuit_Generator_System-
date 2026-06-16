@@ -26,7 +26,7 @@ void BatteryItem::paint(QPainter *painter,const QStyleOptionGraphicsItem *, QWid
     font.setPointSize(10);
     font.setBold(true);
     painter->setFont(font);
-    painter->drawText(QRectF(-55, 30, 110, 20), Qt::AlignCenter, QString("Battery #%1").arg(getComponentId()));
+    painter->drawText(QRectF(-55, 30, 110, 20), Qt::AlignCenter, QString("电源 #%1").arg(getComponentId()));
     //标明每个元器件的名称及编号
     font.setPointSize(20);
     painter->setFont(font);
