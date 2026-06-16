@@ -1,0 +1,31 @@
+{
+	"BUILD_DIR" : "E:/Qt_code/Test_Qt/build/Desktop_Qt_6_11_1_MinGW_64_bit-Debug/Test_Qt_autogen",
+	"CMAKE_BINARY_DIR" : "E:/Qt_code/Test_Qt/build/Desktop_Qt_6_11_1_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "E:/Qt_code/Test_Qt/build/Desktop_Qt_6_11_1_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "E:/Qt_code/Test_Qt",
+	"CMAKE_SOURCE_DIR" : "E:/Qt_code/Test_Qt",
+	"CROSS_CONFIG" : false,
+	"GENERATOR" : "MinGW Makefiles",
+	"INCLUDE_DIR" : "E:/Qt_code/Test_Qt/build/Desktop_Qt_6_11_1_MinGW_64_bit-Debug/Test_Qt_autogen/include",
+	"INPUTS" : 
+	[
+		"E:/Qt_code/Test_Qt/Cpp_Practice_Picture/Battery.png",
+		"E:/Qt_code/Test_Qt/Cpp_Practice_Picture/ammeter.png",
+		"E:/Qt_code/Test_Qt/Cpp_Practice_Picture/voltmeter 0-15v.png",
+		"E:/Qt_code/Test_Qt/Cpp_Practice_Picture/resistor.png",
+		"E:/Qt_code/Test_Qt/Cpp_Practice_Picture/voltmeter 0-3v.png",
+		"E:/Qt_code/Test_Qt/Cpp_Practice_Picture/Switch.png",
+		"E:/Qt_code/Test_Qt/Cpp_Practice_Picture/Bulb.png"
+	],
+	"LOCK_FILE" : "E:/Qt_code/Test_Qt/build/Desktop_Qt_6_11_1_MinGW_64_bit-Debug/CMakeFiles/Test_Qt_autogen.dir/AutoRcc_res_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "--no-zstd", "-name", "res" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_res.cpp",
+	"RCC_EXECUTABLE" : "E:/Qt/6.11.1/mingw_64/bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "E:/Qt_code/Test_Qt/build/Desktop_Qt_6_11_1_MinGW_64_bit-Debug/CMakeFiles/Test_Qt_autogen.dir/AutoRcc_res_EWIEGA46WW_Used.txt",
+	"SOURCE" : "E:/Qt_code/Test_Qt/res.qrc",
+	"USE_BETTER_GRAPH" : true,
+	"VERBOSITY" : 0
+}
