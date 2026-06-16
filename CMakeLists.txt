@@ -14,6 +14,13 @@ qt_add_executable(Test_Qt
     mainwindow.h
     mainwindow.ui
     res.qrc
+    BulbItem.h BulbItem.cpp
+    ComponentItem.h ComponentItem.cpp
+    BatteryItem.h BatteryItem.cpp
+    ResistorItem.h ResistorItem.cpp
+    SwitchItem.h SwitchItem.cpp
+    AmmeterItem.h AmmeterItem.cpp
+    VoltmeterItem.h VoltmeterItem.cpp
 )
 
 target_link_libraries(Test_Qt
