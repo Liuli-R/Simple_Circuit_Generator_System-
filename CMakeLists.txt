@@ -21,6 +21,7 @@ qt_add_executable(Test_Qt
     SwitchItem.h SwitchItem.cpp
     AmmeterItem.h AmmeterItem.cpp
     VoltmeterItem.h VoltmeterItem.cpp
+
 )
 
 target_link_libraries(Test_Qt

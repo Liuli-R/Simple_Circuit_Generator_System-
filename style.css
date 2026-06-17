@@ -1,0 +1,21 @@
+QToolButton#runButton
+{
+    border: none;
+    background: transparent;
+    padding: 4px 10px;
+    border-radius: 8px;
+    color: #166534;
+    font-weight: bold;
+}
+
+QToolButton#runButton:hover
+{
+    background-color: rgba(34, 197, 94, 45);
+    border-radius: 8px;
+}
+
+QToolButton#runButton:pressed
+{
+    background-color: rgba(34, 197, 94, 80);
+}
+/*初版修改未定*/

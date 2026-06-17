@@ -79,6 +79,10 @@ MainWindow::MainWindow(QWidget *parent)
         ui->statusbar->showMessage("运行电路ing~~~",3000);
         //提醒注释:Qt中时间以毫秒结尾
     });//将"运行电路"信息重新写道底下状态栏中
+
+    runButton->setObjectName("runButton");
+    /*这个形式类似setText设置文本内容，但是实际作用相当于是
+     设计给程序识别的对象名字内容，方便匹配到QSS中的美化样式*/
 }
 
 MainWindow::~MainWindow()
