@@ -3,6 +3,10 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QGraphicsEllipseItem>
+#include <QPushButton>
+#include <QToolButton>
+#include <QIcon>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -56,6 +60,24 @@ MainWindow::MainWindow(QWidget *parent)
     ui->toolBar->addSeparator();
 
     ui->toolBar->setFixedWidth(90);
+
+    //设置runAction的目的是如果后续想添加多个方式进行运行直接绑定
+    //runAction指针指向的QAction即可，享有相同的触发效果，图标，快捷键等
+    QAction *runAction = new QAction(QIcon(":/Cpp_Practice_Picture/run.png"), "运行", this);
+    runAction->setToolTip("运行当前电路并刷新灯泡状态"); //小字提示部分
+    runAction->setShortcut(QKeySequence("Ctrl+R")); //快捷键
+
+    QToolButton *runButton = new QToolButton(this);
+    runButton->setDefaultAction(runAction);//按钮默认绑定动作
+    runButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);//图片在文字旁边
+    runButton->setAutoRaise(true);//按钮鼠标放上或按下自动凸起
+    runButton->setCursor(Qt::PointingHandCursor);//图标变为指向手
+
+    ui->menubar->setCornerWidget(runButton, Qt::TopRightCorner);//设置到菜单栏的右边位置
+
+    connect(runAction, &QAction::triggered, this, [=]() {
+        qDebug() << "运行电路";
+    });//将"运行电路"信息重新写道底下状态栏中
 }
 
 MainWindow::~MainWindow()

@@ -16,7 +16,7 @@ void Voltmeter::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->setBrush(QColor(255, 255, 255));
     painter->drawEllipse(QPointF(0, 0), 30, 30);
 
-    //画代表电流表的字母'A'
+    //画代表电流表的字母'V'
     QFont font;
     font.setPointSize(16);
     font.setBold(true);
