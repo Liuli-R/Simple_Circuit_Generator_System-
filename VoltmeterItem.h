@@ -1,10 +1,18 @@
 #ifndef VOLTMETERITEM_H
 #define VOLTMETERITEM_H
 
-class Voltmeter
+#include "ComponentItem.h"
+
+class Voltmeter:public ComponentItem
 {
-public:
-    Voltmeter();
+    public:
+        Voltmeter(int VoltmeterId,QGraphicsItem *parent=nullptr);
+        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+        int getVoltage() const;
+        void setVoltage(double vol);
+        QRectF boundingRect() const override;
+    private:
+        double voltage=0.0;
 };
 
 #endif // VOLTMETERITEM_H
