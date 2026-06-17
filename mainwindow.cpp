@@ -76,7 +76,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->menubar->setCornerWidget(runButton, Qt::TopRightCorner);//设置到菜单栏的右边位置
 
     connect(runAction, &QAction::triggered, this, [=]() {
-        qDebug() << "运行电路";
+        ui->statusbar->showMessage("运行电路ing~~~",3000);
+        //提醒注释:Qt中时间以毫秒结尾
     });//将"运行电路"信息重新写道底下状态栏中
 }
 
