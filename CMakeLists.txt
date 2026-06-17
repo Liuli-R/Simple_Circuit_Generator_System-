@@ -14,13 +14,21 @@ qt_add_executable(Test_Qt
     mainwindow.h
     mainwindow.ui
     res.qrc
-    BulbItem.h BulbItem.cpp
-    ComponentItem.h ComponentItem.cpp
-    BatteryItem.h BatteryItem.cpp
-    ResistorItem.h ResistorItem.cpp
-    SwitchItem.h SwitchItem.cpp
-    AmmeterItem.h AmmeterItem.cpp
-    VoltmeterItem.h VoltmeterItem.cpp
+    Graphics/BulbItem.h
+    Graphics/BulbItem.cpp
+    Graphics/ComponentItem.h
+    Graphics/ComponentItem.cpp
+    Graphics/BatteryItem.h
+    Graphics/BatteryItem.cpp
+    Graphics/ResistorItem.h
+    Graphics/ResistorItem.cpp
+    Graphics/SwitchItem.h
+    Graphics/SwitchItem.cpp
+
+    Graphics/VoltmeterItem.h
+    Graphics/VoltmeterItem.cpp
+    Graphics/AmmeterItem.cpp
+    Graphics/AmmeterItem.cpp
 
 )
 
