@@ -29,6 +29,7 @@ qt_add_executable(Test_Qt
     Graphics/VoltmeterItem.cpp
     Graphics/AmmeterItem.cpp
     Graphics/AmmeterItem.cpp
+    circuitscene.h circuitscene.cpp
 
 )
 
