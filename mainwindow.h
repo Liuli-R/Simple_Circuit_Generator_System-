@@ -5,6 +5,12 @@
 #include <QGraphicsScene>
 #include <QToolButton>
 #include <QList>
+#include "Circuit_code/Circuit.h"
+#include "Circuit_code/Battery.h"
+#include "Circuit_code/Bulb.h"
+#include "Circuit_code/Ammeter.h"
+#include "Circuit_code/Voltmeter.h"
+#include "Circuit_code/Fixed_resistor.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -25,6 +31,8 @@ public:
     void setupRunButton();
     void setupHeader();
     void setupConnections();
+
+    void buildCircuit();
     ~MainWindow() override;
 
 private:
