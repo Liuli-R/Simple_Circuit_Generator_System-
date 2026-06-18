@@ -24,11 +24,12 @@ qt_add_executable(Simple_Circuit_Generator_System
     Graphics/ResistorItem.cpp
     Graphics/SwitchItem.h
     Graphics/SwitchItem.cpp
-
     Graphics/VoltmeterItem.h
     Graphics/VoltmeterItem.cpp
+    Graphics/AmmeterItem.h
     Graphics/AmmeterItem.cpp
-    circuitscene.h circuitscene.cpp
+    circuitscene.h
+    circuitscene.cpp
     Circuit_code/Ammeter.cpp
     Circuit_code/Ammeter.h
     Circuit_code/Battery.cpp
@@ -51,6 +52,7 @@ qt_add_executable(Simple_Circuit_Generator_System
     Circuit_code/Node.h
     Circuit_code/Voltmeter.cpp
     Circuit_code/Voltmeter.h
+    Circuit_code/Switch.h Circuit_code/Switch.cpp
 
 )
 

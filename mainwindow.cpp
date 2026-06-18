@@ -112,6 +112,51 @@ void MainWindow::setupConnections()
     });//将"运行电路"信息重新写道底下状态栏中
 }
 
+void MainWindow::buildCircuit()
+{
+
+}
+
+void MainWindow::drawCircuit()
+{
+
+}
+
+void MainWindow::clearCircuit()
+{
+
+}
+
+void MainWindow::addBattery()
+{
+
+}
+
+void MainWindow::addBulb()
+{
+
+}
+
+void MainWindow::addAmmeter()
+{
+
+}
+
+void MainWindow::addVoltmeter()
+{
+
+}
+
+void MainWindow::addSwitch()
+{
+
+}
+
+void MainWindow::addResistor()
+{
+
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;

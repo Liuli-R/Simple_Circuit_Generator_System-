@@ -10,6 +10,7 @@ private:
     std::vector<Component*> components;
     std::vector<Node*> nodes;
     int nextNodeId = 1;
+    int nextComponentId = 1;
 
 public:
     Circuit();

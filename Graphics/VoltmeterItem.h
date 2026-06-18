@@ -3,10 +3,10 @@
 
 #include "ComponentItem.h"
 
-class Voltmeter:public ComponentItem
+class VoltmeterItem:public ComponentItem
 {
     public:
-        Voltmeter(int VoltmeterId,QGraphicsItem *parent=nullptr);
+        VoltmeterItem(int VoltmeterId,QGraphicsItem *parent=nullptr);
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
         int getVoltage() const;
         void setVoltage(double vol);

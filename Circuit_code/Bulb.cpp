@@ -1,7 +1,7 @@
 #include "Bulb.h"
 
-Bulb::Bulb(int id, double resistance)
-    : Component(id, resistance), isLit(false) {}
+Bulb::Bulb(int id, double resistance, bool isLit)
+    : Component(id, resistance), isLit(isLit) {}
 
 std::string Bulb::getTypeName() const {
     return "bulb";

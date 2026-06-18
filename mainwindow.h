@@ -6,6 +6,9 @@
 #include <QToolButton>
 #include <QList>
 #include "Circuit_code/Circuit.h"
+#include "Circuit_code/CircuitModel.h"
+#include "Circuit_code/CircuitSolver.h"
+#include "Circuit_code/connection.h"
 #include "Circuit_code/Battery.h"
 #include "Circuit_code/Bulb.h"
 #include "Circuit_code/Ammeter.h"
@@ -33,6 +36,16 @@ public:
     void setupConnections();
 
     void buildCircuit();
+    void drawCircuit();//绘制电路
+    void clearCircuit();//清空电路重新来过
+    //以下都是预备为槽函数进行与对应按钮进行连接的作用
+    void addBattery();
+    void addBulb();
+    void addResistor();
+    void addAmmeter();
+    void addVoltmeter();
+    void addSwitch();
+
     ~MainWindow() override;
 
 private:

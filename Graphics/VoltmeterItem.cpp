@@ -1,12 +1,12 @@
 #include "VoltmeterItem.h"
 
 #include <QPainter>
-Voltmeter::Voltmeter(int VoltmeterId,QGraphicsItem *parent)
+VoltmeterItem::VoltmeterItem(int VoltmeterId,QGraphicsItem *parent)
     :ComponentItem(VoltmeterId,parent)
 {
 }
 
-void Voltmeter::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void VoltmeterItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     painter->setRenderHint(QPainter::Antialiasing);
 
@@ -30,15 +30,15 @@ void Voltmeter::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawText(QRectF(-55, 36, 110, 20), Qt::AlignCenter, QString("电压表 #%1").arg(getComponentId()));
     //原理同前
 }
-int Voltmeter::getVoltage() const
+int VoltmeterItem::getVoltage() const
 {
     return voltage;
 }
-void Voltmeter::setVoltage(double vol)
+void VoltmeterItem::setVoltage(double vol)
 {
     voltage=vol;
 }
-QRectF Voltmeter::boundingRect() const
+QRectF VoltmeterItem::boundingRect() const
 {
     return QRectF(-78,-68,156,136);
 }
