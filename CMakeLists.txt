@@ -30,6 +30,8 @@ qt_add_executable(Test_Qt
     Graphics/AmmeterItem.cpp
     Graphics/AmmeterItem.cpp
     circuitscene.h circuitscene.cpp
+    Circuit_code/Ammeter.cpp
+    Circuit_code/Ammeter.cpp Circuit_code/Ammeter.h Circuit_code/Battery.cpp Circuit_code/Battery.h Circuit_code/Bulb.cpp Circuit_code/Bulb.h Circuit_code/Circuit.cpp Circuit_code/Circuit.h   Circuit_code/CircuitModel.cpp Circuit_code/CircuitModel.h Circuit_code/CircuitSolver.cpp Circuit_code/CircuitSolver.h Circuit_code/Component.cpp Circuit_code/Component.h Circuit_code/connection.cpp Circuit_code/connection.h Circuit_code/Fixed_resistor.cpp Circuit_code/Fixed_resistor.h Circuit_code/Node.cpp Circuit_code/Node.h  Circuit_code/Voltmeter.cpp Circuit_code/Voltmeter.h
 
 )
 
