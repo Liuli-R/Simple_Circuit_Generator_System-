@@ -38,8 +38,6 @@ qt_add_executable(Simple_Circuit_Generator_System
     Circuit_code/Bulb.h
     Circuit_code/Circuit.cpp
     Circuit_code/Circuit.h
-    Circuit_code/CircuitModel.cpp
-    Circuit_code/CircuitModel.h
     Circuit_code/CircuitSolver.cpp
     Circuit_code/CircuitSolver.h
     Circuit_code/Component.cpp

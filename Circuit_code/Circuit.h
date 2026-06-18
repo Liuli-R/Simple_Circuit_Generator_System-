@@ -10,7 +10,6 @@ private:
     std::vector<Component*> components;
     std::vector<Node*> nodes;
     int nextNodeId = 1;
-    int nextComponentId = 1;
 
 public:
     Circuit();
@@ -33,4 +32,6 @@ public:
     bool isClosedLoop() const;
     // 按元件和节点的添加顺序自动构造一个简单串联闭环。
     bool buildClosedLoop();
+    //合并CircuitModel原先职能的一部分操作
+    int getComponentCount() const;
 };

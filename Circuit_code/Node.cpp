@@ -1,5 +1,4 @@
 #include "Node.h"
-#include "Component.h"
 
 Node::Node(int id, int x, int y) : id(id), x(x), y(y) {}
 

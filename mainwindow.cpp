@@ -127,34 +127,61 @@ void MainWindow::clearCircuit()
 
 }
 
-void MainWindow::addBattery()
+void MainWindow::updateCircuitState(bool switchClosed)
+{
+    solver.solve(circuit,switchClosed);
+    updateScene();
+}
+
+void MainWindow::updateScene()
 {
 
+}
+
+void MainWindow::addBattery()
+{
+    auto *battery=new Battery(nextComponentId++);
+    circuit.addComponent(battery);
 }
 
 void MainWindow::addBulb()
 {
-
+    auto *bulb=new Bulb(nextComponentId++);
+    circuit.addComponent(bulb);
 }
 
 void MainWindow::addAmmeter()
 {
-
+    auto *ammeter=new Ammeter(nextComponentId++);
+    circuit.addComponent(ammeter);
 }
 
 void MainWindow::addVoltmeter()
 {
-
+    auto *voltmeter=new Voltmeter(nextComponentId++);
+    circuit.addComponent(voltmeter);
 }
 
 void MainWindow::addSwitch()
 {
-
+    auto *switch1=new Switch(nextComponentId++);
+    circuit.addComponent(switch1);
 }
 
 void MainWindow::addResistor()
 {
+    auto *resistor=new Fixed_resistor(nextComponentId++);
+    circuit.addComponent(resistor);
+}
 
+Circuit& MainWindow::getCircuit()
+{
+    return circuit;
+}
+
+const Circuit& MainWindow::getCircuit() const
+{
+    return circuit;
 }
 
 MainWindow::~MainWindow()

@@ -8,6 +8,7 @@ Circuit::Circuit() {}
 Circuit::~Circuit() {
     for (auto comp : components) delete comp;
     for (auto node : nodes) delete node;
+    nextNodeId=1;//重新计数
 }
 
 Component* Circuit::addComponent(Component* comp) {
@@ -88,11 +89,18 @@ bool Circuit::isClosedLoop() const {
 }
 
 bool Circuit::buildClosedLoop() {
+    //连通排序容器与旧版CircuitModel的orderedComponents相似
     std::vector<Component*> activeComponents;
 
-    // 自动构造闭环时同样排除电压表，只处理主串联回路。
+    //先把电源放到排序容器前面，其他元件顺序不变
     for (auto comp : components) {
-        if (comp != nullptr && comp->getTypeName() != "voltmeter") {
+        if (comp && comp->getTypeName() == "battery") {
+            activeComponents.push_back(comp);
+        }
+    }
+    // 自动构造闭环时同样排除电压表和电源，只处理主串联回路。
+    for (auto comp : components) {
+        if (comp &&comp->getTypeName() != "battery" &&comp->getTypeName() != "voltmeter") {
             activeComponents.push_back(comp);
         }
     }
@@ -109,4 +117,9 @@ bool Circuit::buildClosedLoop() {
     }
 
     return true;
+}
+
+int Circuit::getComponentCount() const
+{
+    return static_cast<int>(components.size());
 }

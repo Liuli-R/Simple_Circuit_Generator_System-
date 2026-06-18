@@ -4,7 +4,7 @@
 #include "Bulb.h"
 #include "Voltmeter.h"
 
-const std::vector<Component*>& CircuitModel::currentComponents() const {
+/*const std::vector<Component*>& CircuitModel::currentComponents() const {
     return orderedComponents.empty() ? components : orderedComponents;
 }
 
@@ -155,4 +155,4 @@ void CircuitModel::setU(double V) {
             voltmeter->setU(V);
         }
     }
-}
+}*/
