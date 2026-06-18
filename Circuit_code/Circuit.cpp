@@ -6,8 +6,15 @@
 Circuit::Circuit() {}
 
 Circuit::~Circuit() {
+    clearCircuit();
+}
+
+void Circuit::clearCircuit()
+{
     for (auto comp : components) delete comp;
+    components.clear();
     for (auto node : nodes) delete node;
+    nodes.clear();
     nextNodeId=1;//重新计数
 }
 
@@ -123,3 +130,11 @@ int Circuit::getComponentCount() const
 {
     return static_cast<int>(components.size());
 }
+
+void Circuit::connectVoltmeterTo(Voltmeter* meter, Component* target)
+{
+    if (!meter || !target) return;
+
+    meter->setLeftNode(target->getLeftNodeId());
+    meter->setRightNode(target->getRightNodeId());
+}//人为设置想让电压表测哪一个元器件,Qt端设计发现原先缺失对节点的固定判断

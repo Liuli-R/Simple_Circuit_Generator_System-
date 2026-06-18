@@ -51,7 +51,7 @@ qt_add_executable(Simple_Circuit_Generator_System
     Circuit_code/Voltmeter.cpp
     Circuit_code/Voltmeter.h
     Circuit_code/Switch.h Circuit_code/Switch.cpp
-
+    ComponentItemManager.h ComponentItemManager.cpp
 )
 
 target_link_libraries(Simple_Circuit_Generator_System

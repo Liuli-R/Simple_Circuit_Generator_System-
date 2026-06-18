@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "circuitscene.h"
+#include "ComponentItemManager.h"
 #include <QGraphicsView>
 #include <QGraphicsEllipseItem>
 #include <QIcon>
@@ -29,6 +30,7 @@ void MainWindow::setupScene()
     scene=new CircuitScene(this);
     //把生成场景对象交给CircuitScene处理
     ui->graphicsView->setScene(scene);
+    itemManager = new ComponentItemManager(scene);
 
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
     ui->graphicsView->setSceneRect(scene->sceneRect());
@@ -110,11 +112,17 @@ void MainWindow::setupConnections()
     connect(runAction, &QAction::triggered, this, [=]() {
         ui->statusbar->showMessage("运行电路ing~~~",3000);  //提醒注释:Qt中时间以毫秒结尾
     });//将"运行电路"信息重新写道底下状态栏中
+    connect(bulbAction, &QAction::triggered, this, &MainWindow::addBulb);
+    connect(switchAction, &QAction::triggered, this, &MainWindow::addSwitch);
+    connect(batteryAction, &QAction::triggered, this, &MainWindow::addBattery);
+    connect(ammeterAction, &QAction::triggered, this, &MainWindow::addAmmeter);
+    connect(voltmeterAction, &QAction::triggered, this, &MainWindow::addVoltmeter);
+    connect(resistorAction, &QAction::triggered, this, &MainWindow::addResistor);
 }
 
 void MainWindow::buildCircuit()
 {
-
+    circuit.buildClosedLoop();
 }
 
 void MainWindow::drawCircuit()
@@ -124,11 +132,14 @@ void MainWindow::drawCircuit()
 
 void MainWindow::clearCircuit()
 {
-
+    circuit.clearCircuit();
+    nextComponentId = 1;
+    scene->clear();
 }
 
 void MainWindow::updateCircuitState(bool switchClosed)
 {
+    buildCircuit();
     solver.solve(circuit,switchClosed);
     updateScene();
 }
@@ -142,36 +153,49 @@ void MainWindow::addBattery()
 {
     auto *battery=new Battery(nextComponentId++);
     circuit.addComponent(battery);
+    circuit.addNode();
+    itemManager->addComponentItem(battery);
 }
 
 void MainWindow::addBulb()
 {
     auto *bulb=new Bulb(nextComponentId++);
     circuit.addComponent(bulb);
+    circuit.addNode();
+    itemManager->addComponentItem(bulb);
 }
 
 void MainWindow::addAmmeter()
 {
     auto *ammeter=new Ammeter(nextComponentId++);
     circuit.addComponent(ammeter);
+    circuit.addNode();
+    itemManager->addComponentItem(ammeter);
 }
 
 void MainWindow::addVoltmeter()
 {
     auto *voltmeter=new Voltmeter(nextComponentId++);
     circuit.addComponent(voltmeter);
+    //根据代码逻辑暂时不加入节点判断
+    itemManager->addComponentItem(voltmeter);
+
 }
 
 void MainWindow::addSwitch()
 {
     auto *switch1=new Switch(nextComponentId++);
     circuit.addComponent(switch1);
+    circuit.addNode();
+    itemManager->addComponentItem(switch1);
 }
 
 void MainWindow::addResistor()
 {
     auto *resistor=new Fixed_resistor(nextComponentId++);
     circuit.addComponent(resistor);
+    circuit.addNode();
+    itemManager->addComponentItem(resistor);
 }
 
 Circuit& MainWindow::getCircuit()

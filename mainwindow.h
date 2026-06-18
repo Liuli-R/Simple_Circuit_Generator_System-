@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include <QToolButton>
 #include <QList>
+#include "ComponentItemManager.h"
 #include "Circuit_code/Circuit.h"
 #include "Circuit_code/CircuitSolver.h"
 #include "Circuit_code/connection.h"
@@ -68,5 +69,6 @@ private:
     int nextComponentId = 1;
     Circuit circuit;//整体电路模型
     CircuitSolver solver;//负责计算整个电路的"计算器"
+    ComponentItemManager *itemManager=nullptr;//负责管理整个图形系统
 };
 #endif // MAINWINDOW_H

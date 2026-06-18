@@ -3,6 +3,7 @@
 #include <vector>
 #include "Component.h"
 #include "Node.h"
+#include "Voltmeter.h"
 
 class Circuit {
 private:
@@ -34,4 +35,7 @@ public:
     bool buildClosedLoop();
     //合并CircuitModel原先职能的一部分操作
     int getComponentCount() const;
+    //新加更好服务图形化的接口
+    void connectVoltmeterTo(Voltmeter* meter, Component* target);
+    void clearCircuit();
 };
