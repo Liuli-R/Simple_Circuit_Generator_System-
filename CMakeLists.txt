@@ -30,7 +30,6 @@ qt_add_executable(Simple_Circuit_Generator_System
     Graphics/AmmeterItem.cpp
     circuitscene.h circuitscene.cpp
     Circuit_code/Ammeter.cpp
-    Circuit_code/Ammeter.cpp
     Circuit_code/Ammeter.h
     Circuit_code/Battery.cpp
     Circuit_code/Battery.h
