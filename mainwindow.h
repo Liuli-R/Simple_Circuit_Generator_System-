@@ -11,6 +11,7 @@ class QGraphicsScene;
 class ComponentAddController;
 class ComponentItemManager;
 class WireManager;
+class TopActionWidget;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -25,7 +26,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     void setupScene();
-    void setupRunButton();
+    void setupActions();
+    void setupMenus();
+    void setupTopActionWidget();
     void setupConnections();
     bool areAllSwitchesClosed() const;
     bool isCircuitClosed() const;
@@ -44,7 +47,9 @@ public:
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene = nullptr;
-    QAction *runAction = nullptr;
+    QAction *runAction = nullptr;//菜单栏右边控件按钮集成
+    QAction *clearAction = nullptr;
+    TopActionWidget *topActionWidget = nullptr;
     Circuit circuit;//整体电路模型
     CircuitSolver solver;//负责计算整个电路的"计算器"
     ComponentItemManager *itemManager = nullptr;//负责管理整个图形系统

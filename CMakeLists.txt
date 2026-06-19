@@ -67,6 +67,7 @@ qt_add_executable(Simple_Circuit_Generator_System
     componentpalettewidget.h
     componentpalettewidget.cpp
     componentpalettewidget.ui
+    topactionwidget.h topactionwidget.cpp topactionwidget.ui
 )
 
 target_link_libraries(Simple_Circuit_Generator_System

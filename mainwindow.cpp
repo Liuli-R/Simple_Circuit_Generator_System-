@@ -9,7 +9,9 @@
 #include "Circuit_code/Bulb.h"
 #include "Circuit_code/switch.h"
 #include "Graphics/items/BulbItem.h"
+#include "topactionwidget.h"
 
+#include <QMenu>
 #include <QAction>
 #include <QGraphicsView>
 #include <QIcon>
@@ -23,7 +25,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setupScene();
-    setupRunButton();
+    setupActions();
+    setupMenus();
+    setupTopActionWidget();
     setupConnections();
 }
 
@@ -40,24 +44,33 @@ void MainWindow::setupScene()
     ui->graphicsView->setSceneRect(scene->sceneRect());
 }
 
-void MainWindow::setupRunButton()
+void MainWindow::setupActions()
 {
     //设置runAction的目的是如果后续想添加多个方式进行运行直接绑定
     //runAction指针指向的QAction即可，享有相同的触发效果，图标，快捷键等
     runAction = new QAction(QIcon(":/Cpp_Practice_Picture/run.png"), "运行", this);
-    runAction->setToolTip("运行当前电路并刷新灯泡状态"); //小字提示部分
-    runAction->setShortcut(QKeySequence("Ctrl+R")); //快捷键
+    runAction->setToolTip("运行当前电路并刷新灯泡状态");
+    runAction->setShortcut(QKeySequence("Ctrl+R"));
 
-    QToolButton *runButton = new QToolButton(this);
-    runButton->setDefaultAction(runAction);//按钮默认绑定动作
-    runButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);//图片在文字旁边
-    runButton->setAutoRaise(true);//按钮鼠标放上或按下自动凸起
-    runButton->setCursor(Qt::PointingHandCursor);//图标变为指向手
-    runButton->setObjectName("runButton");
-    /*这个形式类似setText设置文本内容，但是实际作用相当于是
-     设计给程序识别的对象名字内容，方便匹配到QSS中的美化样式*/
+    clearAction = new QAction(QIcon(":/Cpp_Practice_Picture/clear.png"), "清空", this);
+    clearAction->setToolTip("清空当前电路和画布");
+    clearAction->setShortcut(QKeySequence("Ctrl+L"));
+}
 
-    ui->menubar->setCornerWidget(runButton, Qt::TopRightCorner);//设置到菜单栏的右边位置
+void MainWindow::setupMenus()
+{
+    QMenu *operationMenu = ui->menubar->addMenu("操作");
+    operationMenu->addAction(runAction);
+    operationMenu->addAction(clearAction);
+}
+
+void MainWindow::setupTopActionWidget()
+{
+    topActionWidget = new TopActionWidget(this);
+    topActionWidget->setRunAction(runAction);
+    topActionWidget->setClearAction(clearAction);
+
+    ui->menubar->setCornerWidget(topActionWidget, Qt::TopRightCorner);
 }
 
 void MainWindow::setupConnections()
