@@ -18,6 +18,7 @@ void ResistorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     //最后一个参数进行圆角平滑连接
     painter->setPen(pen);
     painter->setBrush(QColor(255, 255, 255));
+    painter->drawRoundedRect(QRectF(-35, -18, 70, 36), 5, 5);
     /*内部用白色填充电阻的内部，填充白色的原因即防止因调用
     drawTerminals而导致保持绿色填充*/
 

@@ -3,18 +3,9 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
-#include <QToolButton>
-#include <QList>
-#include "ComponentItemManager.h"
+#include "Graphics/manager/ComponentItemManager.h"
 #include "Circuit_code/Circuit.h"
 #include "Circuit_code/CircuitSolver.h"
-#include "Circuit_code/connection.h"
-#include "Circuit_code/Battery.h"
-#include "Circuit_code/Bulb.h"
-#include "Circuit_code/Ammeter.h"
-#include "Circuit_code/Voltmeter.h"
-#include "Circuit_code/Fixed_resistor.h"
-#include "Circuit_code/switch.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -29,11 +20,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     void setupScene();
-    void setupComponentActions();
-    QToolButton *createComponentButton(QAction *action);
-    void setupComponentPanel();
     void setupRunButton();
-    void setupHeader();
     void setupConnections();
 
     void buildCircuit();
@@ -58,15 +45,8 @@ public:
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene=nullptr;
-    QAction *bulbAction=nullptr;
-    QAction *switchAction=nullptr;
-    QAction *batteryAction=nullptr;
-    QAction *ammeterAction=nullptr;
-    QAction *voltmeterAction=nullptr;
-    QAction *resistorAction=nullptr;
-    QAction *runAction=nullptr;
-    QList<QAction *> componentActions;
     int nextComponentId = 1;
+    QAction *runAction = nullptr;
     Circuit circuit;//整体电路模型
     CircuitSolver solver;//负责计算整个电路的"计算器"
     ComponentItemManager *itemManager=nullptr;//负责管理整个图形系统

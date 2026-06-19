@@ -2,6 +2,7 @@
 #define COMPONENTITEM_H
 
 #include <QGraphicsItem>
+#include <QVariant>
 
 //公有继承QGraphicsItem由图形条目到元器件条目
 class ComponentItem:public QGraphicsItem
@@ -23,7 +24,8 @@ class ComponentItem:public QGraphicsItem
 
     protected:
         void drawTerminals(QPainter *painter) const;
-
+        QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+        //限制可移动边界所用的边界约束防止移出画布所在范围 重写QGraphicsItem的成员函数
     private:
         int id;
 };

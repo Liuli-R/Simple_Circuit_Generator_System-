@@ -19,10 +19,10 @@ void AmmeterItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
     //画代表电流表的字母'A'
     QFont font;
-    font.setPointSize(16);
+    font.setPointSize(26);
     font.setBold(true);
     painter->setFont(font);
-    painter->drawText(QRectF(-30,30,60,60),Qt::AlignCenter,"A");
+    painter->drawText(QRectF(-30,-30,60,60),Qt::AlignCenter,"A");
 
     painter->setPen(QPen(QColor(75, 85, 99), 1.5));
     font.setPointSize(10);

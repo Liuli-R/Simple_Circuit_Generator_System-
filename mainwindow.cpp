@@ -1,16 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "circuitscene.h"
-#include "ComponentItemManager.h"
-#include <QGraphicsView>
-#include <QGraphicsEllipseItem>
-#include <QIcon>
-#include <QDebug>
-#include <QList>
-#include <QScrollArea>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QLabel>
+#include "Graphics/scene/circuitscene.h"
+#include "Graphics/manager/ComponentItemManager.h"
+#include "componentpalettewidget.h"
+#include "Circuit_code/Battery.h"
+#include "Circuit_code/Bulb.h"
+#include "Circuit_code/Ammeter.h"
+#include "Circuit_code/Voltmeter.h"
+#include "Circuit_code/Fixed_resistor.h"
+#include "Circuit_code/switch.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,10 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setupScene();
-    setupComponentActions();
-    setupComponentPanel();
     setupRunButton();
-    setupHeader();
     setupConnections();
 }
 
@@ -34,48 +29,6 @@ void MainWindow::setupScene()
 
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
     ui->graphicsView->setSceneRect(scene->sceneRect());
-}
-
-void MainWindow::setupComponentActions()
-{
-    //将所有的QAction*->行为集中在一起放入列表作为功能存储
-    bulbAction=new QAction(QIcon(":/Cpp_Practice_Picture/Bulb.png"),"小灯泡",this);
-    switchAction=new QAction(QIcon(":/Cpp_Practice_Picture/Switch.png"),"开关",this);
-    batteryAction=new QAction(QIcon(":/Cpp_Practice_Picture/Battery.png"),"电源",this);
-    ammeterAction=new QAction(QIcon(":/Cpp_Practice_Picture/ammeter.png"),"电流表",this);
-    voltmeterAction=new QAction(QIcon(":/Cpp_Practice_Picture/voltmeter 0-3v.png"),"电压表",this);
-    resistorAction=new QAction(QIcon(":/Cpp_Practice_Picture/resistor.png"),"电阻",this);
-}
-
-QToolButton * MainWindow::createComponentButton(QAction *action)
-{
-    QToolButton *button = new QToolButton(this);
-    button->setDefaultAction(action);
-    button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    button->setIconSize(QSize(56, 40));
-    button->setFixedSize(92, 82);
-    button->setObjectName("componentButton");
-    return button;
-}
-
-void MainWindow::setupComponentPanel()
-{
-    ui->componentPanel->setObjectName("componentPanel");
-    ui->componentScrollArea->setObjectName("componentScrollArea");
-    QList<QAction *> componentActions =
-    {
-        bulbAction,
-        switchAction,
-        batteryAction,
-        ammeterAction,
-        voltmeterAction,
-        resistorAction
-    };//模板参数为QAction*
-    for(QAction* iterator:componentActions)
-    {
-        ui->componentLayout->addWidget(createComponentButton(iterator));
-    }
-    ui->componentLayout->addStretch();
 }
 
 void MainWindow::setupRunButton()
@@ -98,26 +51,17 @@ void MainWindow::setupRunButton()
     ui->menubar->setCornerWidget(runButton, Qt::TopRightCorner);//设置到菜单栏的右边位置
 }
 
-void MainWindow::setupHeader()
-{
-    ui->headerFrame->setObjectName("componentHeader");
-    //便于css单独设计(实际是qss但是qss无法高亮显示又由于qt只需保证语法无误，所以采用css)
-    ui->iconLabel->setPixmap(QPixmap(":/Cpp_Practice_Picture/Tool.png").scaled(20, 20,Qt::KeepAspectRatio,Qt::SmoothTransformation));
-    //图像平滑变换
-    ui->titleLabel->setObjectName("componentHeaderTitle");
-}
-
 void MainWindow::setupConnections()
 {
     connect(runAction, &QAction::triggered, this, [=]() {
         ui->statusbar->showMessage("运行电路ing~~~",3000);  //提醒注释:Qt中时间以毫秒结尾
     });//将"运行电路"信息重新写道底下状态栏中
-    connect(bulbAction, &QAction::triggered, this, &MainWindow::addBulb);
-    connect(switchAction, &QAction::triggered, this, &MainWindow::addSwitch);
-    connect(batteryAction, &QAction::triggered, this, &MainWindow::addBattery);
-    connect(ammeterAction, &QAction::triggered, this, &MainWindow::addAmmeter);
-    connect(voltmeterAction, &QAction::triggered, this, &MainWindow::addVoltmeter);
-    connect(resistorAction, &QAction::triggered, this, &MainWindow::addResistor);
+    connect(ui->componentPalette, &ComponentPaletteWidget::bulbRequested,this, &MainWindow::addBulb);
+    connect(ui->componentPalette, &ComponentPaletteWidget::switchRequested,this, &MainWindow::addSwitch);
+    connect(ui->componentPalette, &ComponentPaletteWidget::batteryRequested,this, &MainWindow::addBattery);
+    connect(ui->componentPalette, &ComponentPaletteWidget::ammeterRequested,this, &MainWindow::addAmmeter);
+    connect(ui->componentPalette, &ComponentPaletteWidget::voltmeterRequested,this, &MainWindow::addVoltmeter);
+    connect(ui->componentPalette, &ComponentPaletteWidget::resistorRequested,this, &MainWindow::addResistor);
 }
 
 void MainWindow::buildCircuit()

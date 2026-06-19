@@ -1,11 +1,11 @@
 #include "ComponentItemManager.h"
 
-#include "Graphics/BatteryItem.h"
-#include "Graphics/BulbItem.h"
-#include "Graphics/ResistorItem.h"
-#include "Graphics/SwitchItem.h"
-#include "Graphics/AmmeterItem.h"
-#include "Graphics/VoltmeterItem.h"
+#include "Graphics/items/BatteryItem.h"
+#include "Graphics/items/BulbItem.h"
+#include "Graphics/items/ResistorItem.h"
+#include "Graphics/items/SwitchItem.h"
+#include "Graphics/items/AmmeterItem.h"
+#include "Graphics/items/VoltmeterItem.h"
 
 ComponentItemManager::ComponentItemManager(QGraphicsScene *scene)
     : scene(scene)
@@ -49,7 +49,7 @@ ComponentItem* ComponentItemManager::addComponentItem(Component *component)
     if (item == nullptr) {
         return nullptr;
     }
-
+    //setPos这个函数是重载于QGraphicsItem中的函数
     item->setPos(defaultPositionForIndex(static_cast<int>(items.size())));
     scene->addItem(item);
     items.push_back(item);
@@ -79,7 +79,7 @@ void ComponentItemManager::layoutItems()
 
 QPointF ComponentItemManager::defaultPositionForIndex(int index) const
 {
-    const int columns = 5;
+    const int columns = 6;
     const int spacingX = 145;
     const int spacingY = 120;
     const int startX = 110;
@@ -89,7 +89,7 @@ QPointF ComponentItemManager::defaultPositionForIndex(int index) const
         startX + (index % columns) * spacingX,
         startY + (index / columns) * spacingY
         );
-}
+}//元器件整体位置布局
 
 void ComponentItemManager::clearAll()
 {
@@ -97,9 +97,11 @@ void ComponentItemManager::clearAll()
         scene->clear();
     }
     items.clear();
+    //清除画布上的所有条目对象，以及清空容器
 }
 
 int ComponentItemManager::itemCount() const
 {
     return static_cast<int>(items.size());
+    //返回容器内数量计数
 }

@@ -18,10 +18,10 @@ void VoltmeterItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 
     //画代表电流表的字母'V'
     QFont font;
-    font.setPointSize(16);
+    font.setPointSize(26);
     font.setBold(true);
     painter->setFont(font);
-    painter->drawText(QRectF(-30,30,60,60),Qt::AlignCenter,"V");
+    painter->drawText(QRectF(-30,-30,60,60),Qt::AlignCenter,"V");
 
     painter->setPen(QPen(QColor(75, 85, 99), 1.5));
     font.setPointSize(10);

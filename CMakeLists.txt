@@ -14,22 +14,7 @@ qt_add_executable(Simple_Circuit_Generator_System
     mainwindow.h
     mainwindow.ui
     res.qrc
-    Graphics/BulbItem.h
-    Graphics/BulbItem.cpp
-    Graphics/ComponentItem.h
-    Graphics/ComponentItem.cpp
-    Graphics/BatteryItem.h
-    Graphics/BatteryItem.cpp
-    Graphics/ResistorItem.h
-    Graphics/ResistorItem.cpp
-    Graphics/SwitchItem.h
-    Graphics/SwitchItem.cpp
-    Graphics/VoltmeterItem.h
-    Graphics/VoltmeterItem.cpp
-    Graphics/AmmeterItem.h
-    Graphics/AmmeterItem.cpp
-    circuitscene.h
-    circuitscene.cpp
+
     Circuit_code/Ammeter.cpp
     Circuit_code/Ammeter.h
     Circuit_code/Battery.cpp
@@ -50,14 +35,44 @@ qt_add_executable(Simple_Circuit_Generator_System
     Circuit_code/Node.h
     Circuit_code/Voltmeter.cpp
     Circuit_code/Voltmeter.h
-    Circuit_code/Switch.h Circuit_code/Switch.cpp
-    ComponentItemManager.h ComponentItemManager.cpp
+    Circuit_code/Switch.h
+    Circuit_code/Switch.cpp
+
+    Graphics/items/AmmeterItem.cpp
+    Graphics/items/AmmeterItem.h
+    Graphics/items/BatteryItem.cpp
+    Graphics/items/BatteryItem.h
+    Graphics/items/BulbItem.cpp
+    Graphics/items/BulbItem.h
+    Graphics/items/ComponentItem.cpp
+    Graphics/items/ComponentItem.h
+    Graphics/items/ResistorItem.cpp
+    Graphics/items/ResistorItem.h
+    Graphics/items/SwitchItem.cpp
+    Graphics/items/SwitchItem.h
+    Graphics/items/VoltmeterItem.cpp
+    Graphics/items/VoltmeterItem.h
+
+    Graphics/manager/ComponentItemManager.cpp
+    Graphics/manager/ComponentItemManager.h
+
+    Graphics/scene/circuitscene.cpp
+    Graphics/scene/circuitscene.h
+
+    componentpalettewidget.h
+    componentpalettewidget.cpp
+    componentpalettewidget.ui
 )
 
 target_link_libraries(Simple_Circuit_Generator_System
     PRIVATE
         Qt::Core
         Qt::Widgets
+)
+
+target_include_directories(Simple_Circuit_Generator_System
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 install(TARGETS Simple_Circuit_Generator_System

@@ -2,6 +2,7 @@
 
 #include <QCursor>
 //用来更改框画对应元器件的鼠标样式
+#include <QGraphicsScene>
 #include <QBrush>
 #include <QPen>
 #include <QPainter>
@@ -10,12 +11,15 @@
 ComponentItem::ComponentItem(int componentId,QGraphicsItem *parent)
     :QGraphicsItem(parent),id(componentId)
 {
+    //setFlag功能开关
     //设计可以让元器件物品被选中被移动
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemIsSelectable);
     //使鼠标移到元器件物品上面鼠标图标显示小手
     setCursor(Qt::OpenHandCursor);
     //使鼠标选中该元器件物品时鼠标图标显示小手抓紧
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+    //使画布内物体反馈图形几何变化 需要回调函数
 }
 
 int ComponentItem::getComponentId() const
@@ -58,6 +62,33 @@ void ComponentItem::drawTerminals(QPainter *painter) const
     painter->setBrush(QColor(34,197,94));
     painter->drawEllipse(QPointF(-55, 0), 4, 4);
     painter->drawEllipse(QPointF(55, 0), 4, 4);
+}
+
+QVariant ComponentItem::itemChange(GraphicsItemChange change, const QVariant &value)
+{
+    //QVariant可以理解为Qt中的"Union"
+    if (change == QGraphicsItem::ItemPositionChange && scene() != nullptr) {
+        QPointF newPos = value.toPointF();
+
+        QRectF sceneBounds = scene()->sceneRect();
+        //scene()获取当前物体所处场景指针 同时获取场景所在矩形区域
+        QRectF itemBounds = boundingRect();
+        //获取物体所在边界
+
+        qreal minX = sceneBounds.left() - itemBounds.left();
+        qreal maxX = sceneBounds.right() - itemBounds.right();
+        qreal minY = sceneBounds.top() - itemBounds.top();
+        qreal maxY = sceneBounds.bottom() - itemBounds.bottom();
+
+        newPos.setX(qBound(minX, newPos.x(), maxX));
+        newPos.setY(qBound(minY, newPos.y(), maxY));
+        //限定整体的移动范围
+
+        return newPos;
+        //不选择setPos()方式是为了防止递归调用
+    }
+
+    return QGraphicsItem::itemChange(change, value);
 }
 
 void ComponentItem::mousePressEvent(QGraphicsSceneMouseEvent *event)

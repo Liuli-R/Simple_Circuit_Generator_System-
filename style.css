@@ -28,13 +28,13 @@ QToolButton#runButton:pressed
 
 QFrame#componentPanel
 {
-    background-color: #e8f5ee;
+    background-color: #ecfdf5;
     border: none;
 }
 
 QScrollArea#componentScrollArea
 {
-    background-color: rgba(248, 250, 252, 210);
+    background-color: transparent;
     border: none;
 }
 
@@ -45,12 +45,13 @@ QScrollArea#componentScrollArea > QWidget
 
 QFrame#componentPanel QToolButton#componentButton
 {
-    border: 1px solid transparent;
-    border-radius: 10px;
-    background-color: transparent;
+    border: 1px solid rgba(34, 197, 94, 60);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 215);
     padding: 6px;
     margin: 4px;
-    color: #374151;
+    color: #1f2937;
+    font-size: 10pt;
 }
 
 QFrame#componentPanel QToolButton#componentButton:hover
@@ -66,15 +67,22 @@ QFrame#componentPanel QToolButton#componentButton:pressed
 
 QFrame#componentHeader
 {
-    background-color: rgba(224, 245, 232, 180);
-    border: 1px solid rgba(78, 165, 98, 255);
-    border-radius: 10px;
+    background-color: rgba(240, 253, 244, 220);
+    border: 1px solid rgba(34, 197, 94, 150);
+    border-radius: 8px;
+}
+
+QLabel#componentHeaderIcon
+{
+    background-color: rgba(255, 255, 255, 170);
+    border-radius: 6px;
 }
 
 QLabel#componentHeaderTitle
 {
-    color: #374151;
+    color: #163b2f;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12pt;
 }
+/*pt和px都可以是调整字体大小的单位但是px针对的是像素pt针对的是字体*/
 /*初版修改未定*/

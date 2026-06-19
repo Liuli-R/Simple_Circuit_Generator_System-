@@ -41,6 +41,7 @@ void SwitchItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 
     //用来模拟开关导线旁边的空心小白点(实际是用白色填充替代实心小白点)
     QPen pen(QColor(0,0,0),2.4,Qt::SolidLine,Qt::RoundCap);
+    painter->setPen(pen);
     painter->setBrush(QColor(255, 255, 255));
     painter->drawEllipse(QPointF(-26, 0), 5, 5);
     painter->drawEllipse(QPointF(26, 0), 5, 5);
