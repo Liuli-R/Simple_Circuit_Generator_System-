@@ -1,9 +1,11 @@
 #include "componentpalettewidget.h"
 #include "ui_componentpalettewidget.h"
 
+#include <QAction>
 #include <QIcon>
-#include <QPixmap>
 #include <QList>
+#include <QPixmap>
+#include <QSize>
 #include <QToolButton>
 
 ComponentPaletteWidget::ComponentPaletteWidget(QWidget *parent)
@@ -51,7 +53,7 @@ void ComponentPaletteWidget::setupComponentPanel()
             voltmeterAction,
             resistorAction
         };//模板参数为QAction*
-    for(QAction* iterator:componentActions)
+    for (QAction *iterator : componentActions)
     {
         ui->componentLayout->addWidget(createComponentButton(iterator));
     }
@@ -63,7 +65,7 @@ void ComponentPaletteWidget::setupHeader()
     ui->headerFrame->setObjectName("componentHeader");
     ui->iconLabel->setObjectName("componentHeaderIcon");
     //便于css单独设计(实际是qss但是qss无法高亮显示又由于qt只需保证语法无误，所以采用css)
-    ui->iconLabel->setPixmap(QPixmap(":/Cpp_Practice_Picture/Tool.png").scaled(18, 18,Qt::KeepAspectRatio,Qt::SmoothTransformation));
+    ui->iconLabel->setPixmap(QPixmap(":/Cpp_Practice_Picture/Tool.png").scaled(18, 18, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     //图像平滑变换
     ui->titleLabel->setObjectName("componentHeaderTitle");
 }

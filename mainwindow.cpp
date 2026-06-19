@@ -1,14 +1,21 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
+#include "Application/ComponentAddController.h"
 #include "Graphics/scene/circuitscene.h"
 #include "Graphics/manager/ComponentItemManager.h"
+#include "Graphics/manager/WireManager.h"
 #include "componentpalettewidget.h"
-#include "Circuit_code/Battery.h"
 #include "Circuit_code/Bulb.h"
-#include "Circuit_code/Ammeter.h"
-#include "Circuit_code/Voltmeter.h"
-#include "Circuit_code/Fixed_resistor.h"
 #include "Circuit_code/switch.h"
+#include "Graphics/items/BulbItem.h"
+
+#include <QAction>
+#include <QGraphicsView>
+#include <QIcon>
+#include <QKeySequence>
+#include <QPainter>
+#include <QToolButton>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,10 +29,12 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::setupScene()
 {
-    scene=new CircuitScene(this);
+    scene = new CircuitScene(this);
     //把生成场景对象交给CircuitScene处理
     ui->graphicsView->setScene(scene);
     itemManager = new ComponentItemManager(scene);
+    wireManager = new WireManager(scene);
+    componentAddController = new ComponentAddController(circuit, *itemManager);
 
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
     ui->graphicsView->setSceneRect(scene->sceneRect());
@@ -54,105 +63,102 @@ void MainWindow::setupRunButton()
 void MainWindow::setupConnections()
 {
     connect(runAction, &QAction::triggered, this, [=]() {
-        ui->statusbar->showMessage("运行电路ing~~~",3000);  //提醒注释:Qt中时间以毫秒结尾
+        ui->statusbar->showMessage("运行电路ing~~~", 3000);  //提醒注释:Qt中时间以毫秒结尾
+        runCircuit();
     });//将"运行电路"信息重新写道底下状态栏中
-    connect(ui->componentPalette, &ComponentPaletteWidget::bulbRequested,this, &MainWindow::addBulb);
-    connect(ui->componentPalette, &ComponentPaletteWidget::switchRequested,this, &MainWindow::addSwitch);
-    connect(ui->componentPalette, &ComponentPaletteWidget::batteryRequested,this, &MainWindow::addBattery);
-    connect(ui->componentPalette, &ComponentPaletteWidget::ammeterRequested,this, &MainWindow::addAmmeter);
-    connect(ui->componentPalette, &ComponentPaletteWidget::voltmeterRequested,this, &MainWindow::addVoltmeter);
-    connect(ui->componentPalette, &ComponentPaletteWidget::resistorRequested,this, &MainWindow::addResistor);
+    connect(ui->componentPalette, &ComponentPaletteWidget::bulbRequested, this, [this]() {
+        componentAddController->addBulb();
+    });
+    connect(ui->componentPalette, &ComponentPaletteWidget::switchRequested, this, [this]() {
+        componentAddController->addSwitch();
+    });
+    connect(ui->componentPalette, &ComponentPaletteWidget::batteryRequested, this, [this]() {
+        componentAddController->addBattery();
+    });
+    connect(ui->componentPalette, &ComponentPaletteWidget::ammeterRequested, this, [this]() {
+        componentAddController->addAmmeter();
+    });
+    connect(ui->componentPalette, &ComponentPaletteWidget::voltmeterRequested, this, [this]() {
+        componentAddController->addVoltmeter();
+    });
+    connect(ui->componentPalette, &ComponentPaletteWidget::resistorRequested, this, [this]() {
+        componentAddController->addResistor();
+    });
 }
+
+bool MainWindow::areAllSwitchesClosed() const
+{
+    bool allClosed = true;
+    for (auto comp : circuit.getMainLoopComponents())
+    {
+        auto *sw = dynamic_cast<Switch *>(comp);
+        if (sw != nullptr && !sw->isClosed())
+            allClosed = false;
+    }//有一个不闭合全电路就是非闭合状态反之就是默认闭合通路
+    return allClosed;
+}//完善检查逻辑只有电路中所有开关全部闭合才能控制一系列状态
+
+bool MainWindow::isCircuitClosed() const
+{
+    return circuit.isClosedLoop() && areAllSwitchesClosed() && circuit.hasBattery();
+}//统一判断多个条件是否满足成立电路运行
 
 void MainWindow::buildCircuit()
 {
     circuit.buildClosedLoop();
 }
 
-void MainWindow::drawCircuit()
+void MainWindow::runCircuit()
 {
-
+    buildCircuit();
+    wireManager->clearWires();
+    wireManager->drawSeriesWires(circuit, *itemManager);
+    solver.solve(circuit, isCircuitClosed());
+    updateScene();
 }
 
 void MainWindow::clearCircuit()
 {
+    wireManager->clearWires();
     circuit.clearCircuit();
-    nextComponentId = 1;
-    scene->clear();
+    componentAddController->resetIds();
+    if (itemManager != nullptr)
+        itemManager->clearAll();
 }
 
 void MainWindow::updateCircuitState(bool switchClosed)
 {
     buildCircuit();
-    solver.solve(circuit,switchClosed);
+    solver.solve(circuit, switchClosed);
     updateScene();
 }
 
 void MainWindow::updateScene()
 {
-
+    for (auto comp : circuit.getMainLoopComponents())
+    {
+        auto *bb = dynamic_cast<Bulb *>(comp);
+        if (bb == nullptr)
+            continue;
+        auto compItem = dynamic_cast<BulbItem *>(itemManager->findItemByComponentId(bb->getId()));
+        compItem->setLightOn(bb->isLitState());
+    }
 }
 
-void MainWindow::addBattery()
-{
-    auto *battery=new Battery(nextComponentId++);
-    circuit.addComponent(battery);
-    circuit.addNode();
-    itemManager->addComponentItem(battery);
-}
-
-void MainWindow::addBulb()
-{
-    auto *bulb=new Bulb(nextComponentId++);
-    circuit.addComponent(bulb);
-    circuit.addNode();
-    itemManager->addComponentItem(bulb);
-}
-
-void MainWindow::addAmmeter()
-{
-    auto *ammeter=new Ammeter(nextComponentId++);
-    circuit.addComponent(ammeter);
-    circuit.addNode();
-    itemManager->addComponentItem(ammeter);
-}
-
-void MainWindow::addVoltmeter()
-{
-    auto *voltmeter=new Voltmeter(nextComponentId++);
-    circuit.addComponent(voltmeter);
-    //根据代码逻辑暂时不加入节点判断
-    itemManager->addComponentItem(voltmeter);
-
-}
-
-void MainWindow::addSwitch()
-{
-    auto *switch1=new Switch(nextComponentId++);
-    circuit.addComponent(switch1);
-    circuit.addNode();
-    itemManager->addComponentItem(switch1);
-}
-
-void MainWindow::addResistor()
-{
-    auto *resistor=new Fixed_resistor(nextComponentId++);
-    circuit.addComponent(resistor);
-    circuit.addNode();
-    itemManager->addComponentItem(resistor);
-}
-
-Circuit& MainWindow::getCircuit()
+Circuit &MainWindow::getCircuit()
 {
     return circuit;
 }
 
-const Circuit& MainWindow::getCircuit() const
+const Circuit &MainWindow::getCircuit() const
 {
     return circuit;
 }
 
 MainWindow::~MainWindow()
 {
+    delete componentAddController;
+    delete wireManager;
+    delete itemManager;
     delete ui;
 }

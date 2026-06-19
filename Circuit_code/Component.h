@@ -2,7 +2,8 @@
 
 #include <string>
 
-class Component {
+class Component
+{
 protected:
     double resistance;    // 元件电阻值。
     int leftNodeId = -1;  // 左端口连接的节点 ID，-1 表示未连接。

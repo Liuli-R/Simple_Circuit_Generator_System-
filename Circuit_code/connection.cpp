@@ -1,28 +1,40 @@
 #include "connection.h"
 
-Connection::Connection(Component* leftComp, Component* rightComp, int nodeId)
-    : m_leftComp(leftComp), m_rightComp(rightComp), numberNode(nodeId) {}
+Connection::Connection(Component *leftComp, Component *rightComp, int nodeId)
+    : m_leftComp(leftComp)
+    , m_rightComp(rightComp)
+    , numberNode(nodeId)
+{
+}
 
-Connection::~Connection() {}
+Connection::~Connection()
+{
+}
 
-Component* Connection::getLeftComponent() const {
+Component *Connection::getLeftComponent() const
+{
     return m_leftComp;
 }
 
-Component* Connection::getRightComponent() const {
+Component *Connection::getRightComponent() const
+{
     return m_rightComp;
 }
 
-int Connection::getNodeId() const {
+int Connection::getNodeId() const
+{
     return numberNode;
 }
 
-void Connection::setNodeId(int nodeId) {
+void Connection::setNodeId(int nodeId)
+{
     numberNode = nodeId;
 }
 
-void Connection::connection() {
-    if (m_leftComp == nullptr || m_rightComp == nullptr) return;
+void Connection::connection()
+{
+    if (m_leftComp == nullptr || m_rightComp == nullptr)
+        return;
 
     int nodeId = numberNode;
     if (nodeId == -1 && m_leftComp->getRightNodeId() != -1) {

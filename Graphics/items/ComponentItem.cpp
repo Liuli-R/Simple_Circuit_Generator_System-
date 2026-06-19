@@ -1,15 +1,18 @@
 #include "ComponentItem.h"
 
+#include <QColor>
 #include <QCursor>
 //用来更改框画对应元器件的鼠标样式
 #include <QGraphicsScene>
-#include <QBrush>
-#include <QPen>
 #include <QPainter>
+#include <QPen>
+#include <QPointF>
+#include <QRectF>
 //以上三者全为绘画时填充内部或描绘外壳的工具
 
-ComponentItem::ComponentItem(int componentId,QGraphicsItem *parent)
-    :QGraphicsItem(parent),id(componentId)
+ComponentItem::ComponentItem(int componentId, QGraphicsItem *parent)
+    : QGraphicsItem(parent)
+    , id(componentId)
 {
     //setFlag功能开关
     //设计可以让元器件物品被选中被移动
@@ -30,36 +33,36 @@ int ComponentItem::getComponentId() const
 
 QRectF ComponentItem::boundingRect() const
 {
-    return QRectF(-70,-52,140,104);
+    return QRectF(-70, -52, 140, 104);
     //目的时框定元器件出现的区域
 }
 
 QPointF ComponentItem::leftPointScenePos() const
 {
-    return mapToScene(QPointF(-55,0));
+    return mapToScene(QPointF(-55, 0));
     //目的是定位到场景的真实坐标
 }
 
 QPointF ComponentItem::rightPointScenePos() const
 {
-    return mapToScene(QPointF(55,0));
+    return mapToScene(QPointF(55, 0));
     //目的时定位到场景的真实坐标
 }
 
 void ComponentItem::drawTerminals(QPainter *painter) const
 {
-    painter->setPen(QPen(QColor(0,0,0),2.0,Qt::SolidLine,Qt::RoundCap));
+    painter->setPen(QPen(QColor(0, 0, 0), 2.0, Qt::SolidLine, Qt::RoundCap));
     //第一种临时构造匿名对象右值引用绑定
     //QPen的临时构造参数又采用了隐式转换将QColor转换为QBrush->构造函数
     //设计样式的边为实线和圆边
-    painter->drawLine(QPointF(-55,0),QPointF(-38,0));
+    painter->drawLine(QPointF(-55, 0), QPointF(-38, 0));
     //画的是两侧接线的导线
-    painter->drawLine(QPointF(38,0),QPointF(55,0));
+    painter->drawLine(QPointF(38, 0), QPointF(55, 0));
 
     //画的是接线两侧的断点
     painter->setPen(Qt::NoPen);
     //不画轮廓线 画两边的端点用绿色实心小圆点代替
-    painter->setBrush(QColor(34,197,94));
+    painter->setBrush(QColor(34, 197, 94));
     painter->drawEllipse(QPointF(-55, 0), 4, 4);
     painter->drawEllipse(QPointF(55, 0), 4, 4);
 }
@@ -67,7 +70,8 @@ void ComponentItem::drawTerminals(QPainter *painter) const
 QVariant ComponentItem::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     //QVariant可以理解为Qt中的"Union"
-    if (change == QGraphicsItem::ItemPositionChange && scene() != nullptr) {
+    if (change == QGraphicsItem::ItemPositionChange && scene() != nullptr)
+    {
         QPointF newPos = value.toPointF();
 
         QRectF sceneBounds = scene()->sceneRect();

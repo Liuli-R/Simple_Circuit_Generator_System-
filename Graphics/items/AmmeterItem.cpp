@@ -2,8 +2,8 @@
 
 #include <QPainter>
 
-AmmeterItem::AmmeterItem(int AmmeterId,QGraphicsItem *parent)
-    :ComponentItem(AmmeterId,parent)
+AmmeterItem::AmmeterItem(int AmmeterId, QGraphicsItem *parent)
+    : ComponentItem(AmmeterId, parent)
 {
 }
 
@@ -22,7 +22,7 @@ void AmmeterItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     font.setPointSize(26);
     font.setBold(true);
     painter->setFont(font);
-    painter->drawText(QRectF(-30,-30,60,60),Qt::AlignCenter,"A");
+    painter->drawText(QRectF(-30, -30, 60, 60), Qt::AlignCenter, "A");
 
     painter->setPen(QPen(QColor(75, 85, 99), 1.5));
     font.setPointSize(10);
@@ -39,10 +39,10 @@ int AmmeterItem::getCurrent() const
 
 QRectF AmmeterItem::boundingRect() const
 {
-    return QRectF(-78,-68,156,136);
+    return QRectF(-78, -68, 156, 136);
 }
 
 void AmmeterItem::setCurrent(double cur)
 {
-    current=cur;
+    current = cur;
 }

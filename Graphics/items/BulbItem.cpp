@@ -2,8 +2,8 @@
 
 #include <QPainter>
 
-BulbItem::BulbItem(int BulbId,QGraphicsItem *parent)
-    :ComponentItem(BulbId,parent)
+BulbItem::BulbItem(int BulbId, QGraphicsItem *parent)
+    : ComponentItem(BulbId, parent)
 {
 }
 
@@ -19,14 +19,14 @@ void BulbItem::setLightOn(bool state)
         return;
     }
 
-    lightOn=state;
+    lightOn = state;
     //用来设置新的状态进而更新状态
     update();
 }
 
 QRectF BulbItem::boundingRect() const
 {
-    return QRectF(-78,-68,156,136);
+    return QRectF(-78, -68, 156, 136);
 }
 
 void BulbItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)

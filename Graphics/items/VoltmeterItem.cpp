@@ -1,8 +1,9 @@
 #include "VoltmeterItem.h"
 
 #include <QPainter>
-VoltmeterItem::VoltmeterItem(int VoltmeterId,QGraphicsItem *parent)
-    :ComponentItem(VoltmeterId,parent)
+
+VoltmeterItem::VoltmeterItem(int VoltmeterId, QGraphicsItem *parent)
+    : ComponentItem(VoltmeterId, parent)
 {
 }
 
@@ -21,7 +22,7 @@ void VoltmeterItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     font.setPointSize(26);
     font.setBold(true);
     painter->setFont(font);
-    painter->drawText(QRectF(-30,-30,60,60),Qt::AlignCenter,"V");
+    painter->drawText(QRectF(-30, -30, 60, 60), Qt::AlignCenter, "V");
 
     painter->setPen(QPen(QColor(75, 85, 99), 1.5));
     font.setPointSize(10);
@@ -36,10 +37,10 @@ int VoltmeterItem::getVoltage() const
 }
 void VoltmeterItem::setVoltage(double vol)
 {
-    voltage=vol;
+    voltage = vol;
 }
 QRectF VoltmeterItem::boundingRect() const
 {
-    return QRectF(-78,-68,156,136);
+    return QRectF(-78, -68, 156, 136);
 }
 

@@ -1,18 +1,19 @@
 #include "BatteryItem.h"
 
 #include <QPainter>
+
 BatteryItem::BatteryItem(int BatteryId, QGraphicsItem *parent)
-    :ComponentItem(BatteryId,parent)
+    : ComponentItem(BatteryId, parent)
 {
 }
 
-void BatteryItem::paint(QPainter *painter,const QStyleOptionGraphicsItem *, QWidget *)
+void BatteryItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setRenderHint(QPainter::Antialiasing);
     //抗锯齿使图片边缘更光滑清楚
     drawTerminals(painter);
 
-    QPen pen(QColor(0,0,0),3.0,Qt::SolidLine,Qt::RoundCap);
+    QPen pen(QColor(0, 0, 0), 3.0, Qt::SolidLine, Qt::RoundCap);
     //声明并定义一个黑色，线宽3.0，实线，圆头
     painter->setPen(pen);
     //拿笔画线长直线与短直线代表电源正负极

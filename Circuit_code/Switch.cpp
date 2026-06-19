@@ -1,7 +1,8 @@
 #include "Switch.h"
 
 Switch::Switch(int id, double resistance, bool closed)
-    :Component(id,resistance),closed(closed)
+    : Component(id, resistance)
+    , closed(closed)
 {
 }
 
@@ -17,5 +18,5 @@ bool Switch::isClosed() const
 
 void Switch::setClosed(bool state)
 {
-    closed=state;
+    closed = state;
 }

@@ -15,6 +15,9 @@ qt_add_executable(Simple_Circuit_Generator_System
     mainwindow.ui
     res.qrc
 
+    Application/ComponentAddController.cpp
+    Application/ComponentAddController.h
+
     Circuit_code/Ammeter.cpp
     Circuit_code/Ammeter.h
     Circuit_code/Battery.cpp
@@ -55,6 +58,8 @@ qt_add_executable(Simple_Circuit_Generator_System
 
     Graphics/manager/ComponentItemManager.cpp
     Graphics/manager/ComponentItemManager.h
+    Graphics/manager/WireManager.cpp
+    Graphics/manager/WireManager.h
 
     Graphics/scene/circuitscene.cpp
     Graphics/scene/circuitscene.h

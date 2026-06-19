@@ -3,8 +3,9 @@
 
 //核心思路->封装成自定义控件
 #include <QWidget>
-#include <QAction>
-#include <QToolButton>
+
+class QAction;
+class QToolButton;
 
 namespace Ui {
 class ComponentPaletteWidget;

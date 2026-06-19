@@ -3,7 +3,8 @@
 #include <limits>
 #include "Component.h"
 
-class Voltmeter : public Component {
+class Voltmeter : public Component
+{
 private:
     double U; // 电压表读数。
 

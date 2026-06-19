@@ -1,6 +1,7 @@
 #pragma once
 
-class Node {
+class Node
+{
 private:
     int id;
     int x; // 预留坐标，供 Qt 图形渲染使用。

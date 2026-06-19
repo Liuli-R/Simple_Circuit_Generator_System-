@@ -1,5 +1,10 @@
 #include "circuitscene.h"
+
+#include <QColor>
 #include <QPainter>
+#include <QPen>
+
+#include <cmath>
 
 CircuitScene::CircuitScene(QObject *parent)
 {
@@ -10,7 +15,7 @@ CircuitScene::CircuitScene(QObject *parent)
 void CircuitScene::drawBackground(QPainter *painter, const QRectF &rect)
 {
     //1.先铺一个淡绿色/淡灰色底色
-    painter->fillRect(rect, QColor(248,255,251));
+    painter->fillRect(rect, QColor(248, 255, 251));
 
     const int gridSize = 20;      // 小网格间距
     const int bigGridSize = 100;  // 大网格间距

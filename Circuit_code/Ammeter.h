@@ -2,7 +2,8 @@
 
 #include "Component.h"
 
-class Ammeter : public Component {
+class Ammeter : public Component
+{
 private:
     double I; // 电流表读数。
 

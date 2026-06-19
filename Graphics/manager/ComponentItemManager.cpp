@@ -1,52 +1,67 @@
 #include "ComponentItemManager.h"
 
+#include "Circuit_code/Component.h"
 #include "Graphics/items/BatteryItem.h"
 #include "Graphics/items/BulbItem.h"
+#include "Graphics/items/ComponentItem.h"
 #include "Graphics/items/ResistorItem.h"
 #include "Graphics/items/SwitchItem.h"
 #include "Graphics/items/AmmeterItem.h"
 #include "Graphics/items/VoltmeterItem.h"
+
+#include <QGraphicsScene>
+#include <QPointF>
+
+#include <string>
 
 ComponentItemManager::ComponentItemManager(QGraphicsScene *scene)
     : scene(scene)
 {
 }
 
-ComponentItem* ComponentItemManager::createItem(Component *component) const
+ComponentItem *ComponentItemManager::createItem(Component *component) const
 {
     const int id = component->getId();
     const std::string type = component->getTypeName();
 
-    if (type == "battery") {
+    if (type == "battery")
+    {
         return new BatteryItem(id);
     }
-    if (type == "bulb") {
+    if (type == "bulb")
+    {
         return new BulbItem(id);
     }
-    if (type == "resistor") {
+    if (type == "resistor")
+    {
         return new ResistorItem(id);
     }
-    if (type == "switch") {
+    if (type == "switch")
+    {
         return new SwitchItem(id);
     }
-    if (type == "ammeter") {
+    if (type == "ammeter")
+    {
         return new AmmeterItem(id);
     }
-    if (type == "voltmeter") {
+    if (type == "voltmeter")
+    {
         return new VoltmeterItem(id);
     }
 
     return nullptr;
 }
 
-ComponentItem* ComponentItemManager::addComponentItem(Component *component)
+ComponentItem *ComponentItemManager::addComponentItem(Component *component)
 {
-    if (scene == nullptr || component == nullptr) {
+    if (scene == nullptr || component == nullptr)
+    {
         return nullptr;
     }
 
     ComponentItem *item = createItem(component);
-    if (item == nullptr) {
+    if (item == nullptr)
+    {
         return nullptr;
     }
     //setPos这个函数是重载于QGraphicsItem中的函数
@@ -57,10 +72,12 @@ ComponentItem* ComponentItemManager::addComponentItem(Component *component)
     return item;
 }
 
-ComponentItem* ComponentItemManager::findItemByComponentId(int componentId) const
+ComponentItem *ComponentItemManager::findItemByComponentId(int componentId) const
 {
-    for (auto *item : items) {
-        if (item != nullptr && item->getComponentId() == componentId) {
+    for (auto *item : items)
+    {
+        if (item != nullptr && item->getComponentId() == componentId)
+        {
             return item;
         }
     }
@@ -70,8 +87,10 @@ ComponentItem* ComponentItemManager::findItemByComponentId(int componentId) cons
 
 void ComponentItemManager::layoutItems()
 {
-    for (int i = 0; i < static_cast<int>(items.size()); ++i) {
-        if (items[i] != nullptr) {
+    for (int i = 0; i < static_cast<int>(items.size()); ++i)
+    {
+        if (items[i] != nullptr)
+        {
             items[i]->setPos(defaultPositionForIndex(i));
         }
     }
@@ -88,12 +107,13 @@ QPointF ComponentItemManager::defaultPositionForIndex(int index) const
     return QPointF(
         startX + (index % columns) * spacingX,
         startY + (index / columns) * spacingY
-        );
+    );
 }//元器件整体位置布局
 
 void ComponentItemManager::clearAll()
 {
-    if (scene != nullptr) {
+    if (scene != nullptr)
+    {
         scene->clear();
     }
     items.clear();
