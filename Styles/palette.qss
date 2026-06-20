@@ -1,0 +1,56 @@
+QWidget#ComponentPaletteWidget,
+QFrame#componentPanel,
+QScrollArea#componentScrollArea,
+QScrollArea#componentScrollArea > QWidget,
+QWidget#scrollAreaWidgetContents
+{
+    background-color: #fff6e5;
+}
+
+QFrame#componentPanel,
+QScrollArea#componentScrollArea
+{
+    border: none;
+}
+
+QFrame#componentPanel QToolButton#componentButton
+{
+    background-color: #ffffff;
+    border: 1px solid #edc77a;
+    border-radius: 8px;
+    padding: 6px;
+    margin: 4px;
+    color: #5e3a12;
+    font-size: 10pt;
+}
+
+QFrame#componentPanel QToolButton#componentButton:hover
+{
+    background-color: #fff0c9;
+    border: 1px solid #d89a2b;
+}
+
+QFrame#componentPanel QToolButton#componentButton:pressed
+{
+    background-color: #ffdea0;
+}
+
+QFrame#headerFrame
+{
+    background-color: #ffe9b0;
+    border: 1px solid #e9b85d;
+    border-radius: 8px;
+}
+
+QLabel#iconLabel
+{
+    background-color: #ffffff;
+    border-radius: 6px;
+}
+
+QLabel#titleLabel
+{
+    color: #5e3a12;
+    font-weight: bold;
+    font-size: 12pt;
+}

@@ -8,8 +8,16 @@
         <file>Cpp_Practice_Picture/voltmeter 0-15v.png</file>
         <file>Cpp_Practice_Picture/resistor.png</file>
         <file>Cpp_Practice_Picture/run.png</file>
-        <file>style.css</file>
         <file>Cpp_Practice_Picture/Tool.png</file>
         <file>Cpp_Practice_Picture/clear.png</file>
+        <file>Cpp_Practice_Picture/operation.png</file>
+        <file>Cpp_Practice_Picture/Loading.gif</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file alias="base.qss">Styles/base.qss</file>
+        <file alias="actions.qss">Styles/actions.qss</file>
+        <file alias="palette.qss">Styles/palette.qss</file>
+        <file alias="dock.qss">Styles/dock.qss</file>
+        <file alias="scrollbar.qss">Styles/scrollbar.qss</file>
     </qresource>
 </RCC>

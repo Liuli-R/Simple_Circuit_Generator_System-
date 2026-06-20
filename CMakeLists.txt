@@ -15,6 +15,12 @@ qt_add_executable(Simple_Circuit_Generator_System
     mainwindow.ui
     res.qrc
 
+    Styles/base.qss
+    Styles/actions.qss
+    Styles/palette.qss
+    Styles/dock.qss
+    Styles/scrollbar.qss
+
     Application/ComponentAddController.cpp
     Application/ComponentAddController.h
 
@@ -64,10 +70,26 @@ qt_add_executable(Simple_Circuit_Generator_System
     Graphics/scene/circuitscene.cpp
     Graphics/scene/circuitscene.h
 
-    componentpalettewidget.h
-    componentpalettewidget.cpp
-    componentpalettewidget.ui
-    topactionwidget.h topactionwidget.cpp topactionwidget.ui
+    Widgets/Dialog/circuitsettingsdialog.cpp
+    Widgets/Dialog/circuitsettingsdialog.h
+    Widgets/Dialog/circuitsettingsdialog.ui
+    Widgets/Dialog/guidedialog.cpp
+    Widgets/Dialog/guidedialog.h
+    Widgets/Dialog/guidedialog.ui
+
+    Widgets/Dock/circuitstatusdock.cpp
+    Widgets/Dock/circuitstatusdock.h
+    Widgets/Dock/circuitstatusdock.ui
+
+    Widgets/Palette/componentpalettewidget.cpp
+    Widgets/Palette/componentpalettewidget.h
+    Widgets/Palette/componentpalettewidget.ui
+
+    Widgets/TopBar/topactionwidget.cpp
+    Widgets/TopBar/topactionwidget.h
+    Widgets/TopBar/topactionwidget.ui
+
+    Circuit_code/CircuitSolveResult.h
 )
 
 target_link_libraries(Simple_Circuit_Generator_System

@@ -5,11 +5,14 @@
 #include "Graphics/scene/circuitscene.h"
 #include "Graphics/manager/ComponentItemManager.h"
 #include "Graphics/manager/WireManager.h"
-#include "componentpalettewidget.h"
+#include "Widgets/Palette/componentpalettewidget.h"
 #include "Circuit_code/Bulb.h"
 #include "Circuit_code/switch.h"
 #include "Graphics/items/BulbItem.h"
-#include "topactionwidget.h"
+#include "Widgets/TopBar/topactionwidget.h"
+#include "Widgets/Dock/circuitstatusdock.h"
+#include "Widgets/Dialog/circuitsettingsdialog.h"
+#include "Widgets/Dialog/guidedialog.h"
 
 #include <QMenu>
 #include <QAction>
@@ -28,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupActions();
     setupMenus();
     setupTopActionWidget();
+    setupStatusDock();
     setupConnections();
 }
 
@@ -39,7 +43,7 @@ void MainWindow::setupScene()
     itemManager = new ComponentItemManager(scene);
     wireManager = new WireManager(scene);
     componentAddController = new ComponentAddController(circuit, *itemManager);
-
+    componentAddController->setSwitchStateChangedCallback([this](){updateCircuitState();});
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
     ui->graphicsView->setSceneRect(scene->sceneRect());
 }
@@ -55,13 +59,31 @@ void MainWindow::setupActions()
     clearAction = new QAction(QIcon(":/Cpp_Practice_Picture/clear.png"), "清空", this);
     clearAction->setToolTip("清空当前电路和画布");
     clearAction->setShortcut(QKeySequence("Ctrl+L"));
+
+    settingsAction = new QAction(QIcon(":/Cpp_Practice_Picture/settings.png"),"电路参数",this);
+    settingsAction->setToolTip("设置当前电路基本参数");
+    settingsAction->setShortcut(QKeySequence("Ctrl+,"));
+
+    guideAction = new QAction(QIcon(":/Cpp_Practice_Picture/help.png"),"使用说明",this);
+    guideAction->setToolTip("这里是项目说明呦!");
+    guideAction->setShortcut(QKeySequence(Qt::Key_F1));
 }
 
 void MainWindow::setupMenus()
 {
-    QMenu *operationMenu = ui->menubar->addMenu("操作");
+    QMenu *operationMenu = new QMenu("操作", this);
+    QMenu *settingsMenu = new QMenu("设置", this);
+    QMenu *helpMenu = new QMenu("帮助", this);
+    operationMenu->addSeparator();
+    settingsMenu->addSeparator();
+    helpMenu->addSeparator();
+    ui->menubar->addMenu(operationMenu);
+    ui->menubar->addMenu(settingsMenu);
+    ui->menubar->addMenu(helpMenu);
     operationMenu->addAction(runAction);
     operationMenu->addAction(clearAction);
+    settingsMenu->addAction(settingsAction);
+    helpMenu->addAction(guideAction);
 }
 
 void MainWindow::setupTopActionWidget()
@@ -73,12 +95,25 @@ void MainWindow::setupTopActionWidget()
     ui->menubar->setCornerWidget(topActionWidget, Qt::TopRightCorner);
 }
 
+void MainWindow::setupStatusDock()
+{
+    statusDock = new CircuitStatusDock(this);
+    addDockWidget(Qt::RightDockWidgetArea,statusDock);
+}
+
 void MainWindow::setupConnections()
 {
     connect(runAction, &QAction::triggered, this, [=]() {
         ui->statusbar->showMessage("运行电路ing~~~", 3000);  //提醒注释:Qt中时间以毫秒结尾
         runCircuit();
     });//将"运行电路"信息重新写道底下状态栏中
+    connect(clearAction, &QAction::triggered, this, [=]() {
+        ui->statusbar->showMessage("清除电路状态成功√", 3000);
+        clearCircuit();
+    });
+    connect(settingsAction,&QAction::triggered,this,&MainWindow::openSettingsDialog);
+    connect(guideAction,&QAction::triggered,this,&MainWindow::openGuideDialog);
+    //点击对应设置该行为的按钮打开窗口
     connect(ui->componentPalette, &ComponentPaletteWidget::bulbRequested, this, [this]() {
         componentAddController->addBulb();
     });
@@ -126,8 +161,10 @@ void MainWindow::runCircuit()
     buildCircuit();
     wireManager->clearWires();
     wireManager->drawSeriesWires(circuit, *itemManager);
-    solver.solve(circuit, isCircuitClosed());
+    auto result=solver.solve(circuit, areAllSwitchesClosed());
+    statusDock->updateResult(result);
     updateScene();
+    circuitPrepared = true;
 }
 
 void MainWindow::clearCircuit()
@@ -137,12 +174,18 @@ void MainWindow::clearCircuit()
     componentAddController->resetIds();
     if (itemManager != nullptr)
         itemManager->clearAll();
+    statusDock->resetDisplay();
+    circuitPrepared = false;
+    //否则第二次边界测试会出现没连线开关就直接控制灯泡亮暗
 }
 
-void MainWindow::updateCircuitState(bool switchClosed)
+void MainWindow::updateCircuitState()
 {
+    if (!circuitPrepared)
+        return;
     buildCircuit();
-    solver.solve(circuit, switchClosed);
+    auto result=solver.solve(circuit, areAllSwitchesClosed());
+    statusDock->updateResult(result);
     updateScene();
 }
 
@@ -156,6 +199,22 @@ void MainWindow::updateScene()
         auto compItem = dynamic_cast<BulbItem *>(itemManager->findItemByComponentId(bb->getId()));
         compItem->setLightOn(bb->isLitState());
     }
+}
+
+void MainWindow::openSettingsDialog()
+{
+    CircuitSettingsDialog dialog(this);
+
+    if (dialog.exec() == QDialog::Accepted)
+    {
+        // 读取并应用用户设置
+    }
+}
+
+void MainWindow::openGuideDialog()
+{
+    GuideDialog dialog(this);
+    dialog.exec();
 }
 
 Circuit &MainWindow::getCircuit()

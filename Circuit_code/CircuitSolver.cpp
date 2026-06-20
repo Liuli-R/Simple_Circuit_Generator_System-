@@ -6,6 +6,7 @@
 #include "Bulb.h"
 #include "Circuit.h"
 #include "Component.h"
+#include "CircuitSolveResult.h"
 
 #include <vector>
 
@@ -118,38 +119,63 @@ void CircuitSolver::setVoltmeters(double voltage)
     }
 }
 
-bool CircuitSolver::solve(Circuit &targetedCircuit, bool switchClosed)
+CircuitSolveResult CircuitSolver::solve(Circuit &targetedCircuit, bool switchesClosed)
 {
     //非法条件都会置空本类的电路指针保证及时断开重新计算
     circuit = &targetedCircuit;
-    if (!switchClosed || !circuit->isClosedLoop())
+    CircuitSolveResult result;
+
+    result.hasAmmeter = circuit->hasAmmeter();
+    result.hasVoltmeter = circuit->hasVoltmeter();
+    result.totalVoltage = getTotalVoltage();
+    result.totalResistance = getTotalResistance();
+    double measuredResistance = getMeasuredResistance();
+    result.voltmeterHasTarget = measuredResistance >= 0.0;
+
+    if (!switchesClosed || !circuit->isClosedLoop())
     {
         setBulbs(false);
         setAmmeters(0.0);
         setVoltmeters(0.0);
         circuit = nullptr;
-        return false;
+
+        result.state = CircuitRunState::Open;
+        return result;
     }
 
-    double totalResistance = getTotalResistance();
-    double totalVoltage = getTotalVoltage();
-
-    if (totalResistance <= 0.0)
+    if (!circuit->hasBattery())
     {
         setBulbs(false);
         setAmmeters(0.0);
         setVoltmeters(0.0);
         circuit = nullptr;
-        return false;
+
+        result.state = CircuitRunState::MissingBattery;
+        return result;
     }
 
-    double current = totalVoltage / totalResistance;
-    setAmmeters(current);
+    if (result.totalResistance <= 0.0)
+    {
+        setBulbs(false);
+        setAmmeters(0.0);
+        setVoltmeters(0.0);
+        circuit = nullptr;
+
+        result.state = CircuitRunState::InvalidResistance;
+        return result;
+    }
+
+    result.current =result.totalVoltage / result.totalResistance;
+    setAmmeters(result.current);
     setBulbs(true);
 
-    double measuredResistance = getMeasuredResistance();
-    setVoltmeters(measuredResistance >= 0.0 ? measuredResistance * current : 0.0);
+    if(result.voltmeterHasTarget)
+        result.voltmeterReading=measuredResistance * result.current;
+    setVoltmeters(result.voltmeterReading);
 
-    circuit = nullptr;
-    return true;
+    result.state = CircuitRunState::Running;
+
+    circuit=nullptr;
+    return result;
+
 }

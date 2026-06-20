@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "CircuitSolveResult.h"
 
 class Circuit;
 class Component;
@@ -9,10 +10,12 @@ class CircuitSolver
 {
 public:
     //执行简单的串联电路计算
-    bool solve(Circuit &circuit, bool switchClosed);
+    //变化从bool变为返回结果类型就是将多种计算结果保存到一个结构体中
+    CircuitSolveResult solve(Circuit &circuit, bool switchesClosed);
 
 private:
     Circuit *circuit = nullptr;
+
 
     //获取排序完成元器件容器为了辅助下面的计算逻辑设计
     std::vector<Component *> getOrderedComponents() const;

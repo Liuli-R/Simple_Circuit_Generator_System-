@@ -42,8 +42,6 @@ QToolButton *ComponentPaletteWidget::createComponentButton(QAction *action)
 
 void ComponentPaletteWidget::setupComponentPanel()
 {
-    ui->componentPanel->setObjectName("componentPanel");
-    ui->componentScrollArea->setObjectName("componentScrollArea");
     QList<QAction *> componentActions =
         {
             bulbAction,
@@ -62,12 +60,8 @@ void ComponentPaletteWidget::setupComponentPanel()
 
 void ComponentPaletteWidget::setupHeader()
 {
-    ui->headerFrame->setObjectName("componentHeader");
-    ui->iconLabel->setObjectName("componentHeaderIcon");
-    //便于css单独设计(实际是qss但是qss无法高亮显示又由于qt只需保证语法无误，所以采用css)
     ui->iconLabel->setPixmap(QPixmap(":/Cpp_Practice_Picture/Tool.png").scaled(18, 18, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     //图像平滑变换
-    ui->titleLabel->setObjectName("componentHeaderTitle");
 }
 
 void ComponentPaletteWidget::setupConnections()

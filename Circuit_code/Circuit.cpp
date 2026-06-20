@@ -3,6 +3,7 @@
 #include "Circuit_code/Battery.h"
 #include "Circuit_code/Component.h"
 #include "Circuit_code/Node.h"
+#include "Circuit_code/Ammeter.h"
 #include "Circuit_code/Voltmeter.h"
 
 #include <cstddef>
@@ -92,6 +93,28 @@ bool Circuit::hasBattery() const
     return false;
 }
 
+bool Circuit::hasAmmeter() const
+{
+    for (auto comp : components)
+    {
+        auto comp1 = dynamic_cast<Ammeter *>(comp);
+        if (comp1 != nullptr)
+            return true;
+    }
+    return false;
+}
+
+bool Circuit::hasVoltmeter() const
+{
+    for (auto comp : components)
+    {
+        auto comp1 = dynamic_cast<Voltmeter *>(comp);
+        if (comp1 != nullptr)
+            return true;
+    }
+    return false;
+}
+
 bool Circuit::isClosedLoop() const
 {
     std::vector<Component *> activeComponents = getMainLoopComponents();
@@ -151,9 +174,8 @@ bool Circuit::buildClosedLoop()
     if (activeComponents.size() != nodes.size())
         return false;
 
-    // 按添加顺序连接：第 i 个元件连接第 i 个节点和下一个节点，最后连回第一个节点。
     for (std::size_t i = 0; i < activeComponents.size(); i++)
-    {
+    {// 按添加顺序连接：第 i 个元件连接第 i 个节点和下一个节点，最后连回第一个节点。
         int leftNodeId = nodes[i]->getId();
         int rightNodeId = nodes[(i + 1) % nodes.size()]->getId();
         connectLeft(activeComponents[i], leftNodeId);

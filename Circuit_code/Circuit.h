@@ -32,8 +32,10 @@ public:
     const std::vector<Component *> &getComponents() const;
     const std::vector<Node *> &getNodes() const;
 
-    //判断当前电路是否拥有电源
+    //判断当前电路是否拥有电源 电流表 电压表 便于后续电路判断
     bool hasBattery() const;
+    bool hasAmmeter() const;
+    bool hasVoltmeter() const;
     //判断当前元件是否形成简单闭合串联回路
     bool isClosedLoop() const;
     //按元件和节点的添加顺序自动构造一个简单串联闭环

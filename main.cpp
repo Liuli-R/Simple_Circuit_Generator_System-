@@ -3,18 +3,38 @@
 #include <QApplication>
 #include <QFile>
 #include <QString>
+#include <QStringList>
+
+namespace {
+QString loadApplicationStyleSheet()
+{
+    const QStringList stylePaths = {
+        ":/styles/base.qss",
+        ":/styles/actions.qss",
+        ":/styles/palette.qss",
+        ":/styles/dock.qss",
+        ":/styles/scrollbar.qss"
+    };
+
+    QString styleSheet;
+    for (const QString &path : stylePaths)
+    {
+        QFile file(path);
+        if (file.open(QFile::ReadOnly | QFile::Text))
+        {
+            styleSheet += QString::fromUtf8(file.readAll());
+            styleSheet += '\n';
+        }
+    }
+    return styleSheet;
+}
+}
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QFile file(":/style.css");
-    //读取资源样式文件，加载美化资源
-    if (file.open(QFile::ReadOnly))//判断是否能以只读方式打开文件
-    {
-        a.setStyleSheet(QString::fromUtf8(file.readAll()));
-        //作用于全局，设计全局的样式格式设计
-        //内部参数为阅读整体文件内容
-    }
+    a.setStyleSheet(loadApplicationStyleSheet());
+
     MainWindow w;
     w.show();
     return QApplication::exec();

@@ -10,6 +10,7 @@
 #include "Graphics/items/SwitchItem.h"
 #include "Graphics/manager/ComponentItemManager.h"
 
+
 ComponentAddController::ComponentAddController(Circuit &circuit, ComponentItemManager &itemManager)
     : circuit(circuit)
     , itemManager(itemManager)
@@ -64,7 +65,9 @@ void ComponentAddController::addSwitch()
 
             if (sw != nullptr)
             {
-                sw->setClosed(closed);
+                sw->setClosed(closed);//将开关状态与对应模型状态同步
+                if(switchStateChangedCallback)
+                    switchStateChangedCallback();
             }
         });//这样就能完成双击同步改变状态
     }
@@ -82,3 +85,8 @@ void ComponentAddController::resetIds()
 {
     nextComponentId = 1;
 }
+
+void ComponentAddController::setSwitchStateChangedCallback(std::function<void()> callback)
+{
+    switchStateChangedCallback=std::move(callback);
+}//同开关回调
