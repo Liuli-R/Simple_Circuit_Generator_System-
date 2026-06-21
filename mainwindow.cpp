@@ -252,6 +252,9 @@ void MainWindow::openSettingsDialog()
         }
 
         wireManager->clearWires();
+        solver.resetOutputs(circuit);
+        updateScene();
+
         circuitPrepared = false;
         statusDock->resetDisplay();
 }
