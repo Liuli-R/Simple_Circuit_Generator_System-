@@ -19,7 +19,8 @@ ComponentAddController::ComponentAddController(Circuit &circuit, ComponentItemMa
 
 void ComponentAddController::addBattery()
 {
-    auto *battery = new Battery(nextComponentId++);
+    auto *battery = new Battery(nextComponentId++,batteryVoltage);
+    //创建电源根据设置好的电压值同步处理
     circuit.addComponent(battery);
     circuit.addNode();
     itemManager.addComponentItem(battery);
@@ -79,6 +80,16 @@ void ComponentAddController::addResistor()
     circuit.addComponent(resistor);
     circuit.addNode();
     itemManager.addComponentItem(resistor);
+}
+
+double ComponentAddController::getDefaultBatteryVoltage() const
+{
+    return batteryVoltage;
+}
+
+void  ComponentAddController::setDefaultBatteryVoltage(double batteryVoltage1)
+{
+    batteryVoltage=batteryVoltage1;
 }
 
 void ComponentAddController::resetIds()

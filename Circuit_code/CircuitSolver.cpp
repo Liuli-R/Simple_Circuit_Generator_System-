@@ -119,6 +119,13 @@ void CircuitSolver::setVoltmeters(double voltage)
     }
 }
 
+void CircuitSolver::resetOutputs()
+{
+    setBulbs(false);
+    setAmmeters(0.0);
+    setVoltmeters(0.0);
+}//由于后边solve整体求解所用太多所以整合了一个简单的函数
+
 CircuitSolveResult CircuitSolver::solve(Circuit &targetedCircuit, bool switchesClosed)
 {
     //非法条件都会置空本类的电路指针保证及时断开重新计算
@@ -134,33 +141,21 @@ CircuitSolveResult CircuitSolver::solve(Circuit &targetedCircuit, bool switchesC
 
     if (!switchesClosed || !circuit->isClosedLoop())
     {
-        setBulbs(false);
-        setAmmeters(0.0);
-        setVoltmeters(0.0);
-        circuit = nullptr;
-
+        resetOutputs();
         result.state = CircuitRunState::Open;
         return result;
     }
 
     if (!circuit->hasBattery())
     {
-        setBulbs(false);
-        setAmmeters(0.0);
-        setVoltmeters(0.0);
-        circuit = nullptr;
-
+        resetOutputs();
         result.state = CircuitRunState::MissingBattery;
         return result;
     }
 
     if (result.totalResistance <= 0.0)
     {
-        setBulbs(false);
-        setAmmeters(0.0);
-        setVoltmeters(0.0);
-        circuit = nullptr;
-
+        resetOutputs();
         result.state = CircuitRunState::InvalidResistance;
         return result;
     }
@@ -174,8 +169,6 @@ CircuitSolveResult CircuitSolver::solve(Circuit &targetedCircuit, bool switchesC
     setVoltmeters(result.voltmeterReading);
 
     result.state = CircuitRunState::Running;
-
-    circuit=nullptr;
     return result;
 
 }

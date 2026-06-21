@@ -5,14 +5,17 @@
 #include "Graphics/scene/circuitscene.h"
 #include "Graphics/manager/ComponentItemManager.h"
 #include "Graphics/manager/WireManager.h"
-#include "Widgets/Palette/componentpalettewidget.h"
+#include "Graphics/items/BulbItem.h"
 #include "Circuit_code/Bulb.h"
 #include "Circuit_code/switch.h"
-#include "Graphics/items/BulbItem.h"
+#include "Circuit_code/Battery.h"
+#include "Circuit_code/Voltmeter.h"
 #include "Widgets/TopBar/topactionwidget.h"
+#include "Widgets/Palette/componentpalettewidget.h"
 #include "Widgets/Dock/circuitstatusdock.h"
 #include "Widgets/Dialog/circuitsettingsdialog.h"
 #include "Widgets/Dialog/guidedialog.h"
+#include "Widgets/Dialog/circuitsettingsdialog.h"
 
 #include <QMenu>
 #include <QAction>
@@ -203,12 +206,54 @@ void MainWindow::updateScene()
 
 void MainWindow::openSettingsDialog()
 {
-    CircuitSettingsDialog dialog(this);
+        CircuitSettingsDialog dialog(this);
 
-    if (dialog.exec() == QDialog::Accepted)
-    {
-        // 读取并应用用户设置
-    }
+        dialog.setInitialVoltage(componentAddController->getDefaultBatteryVoltage());
+
+        for (auto *component : circuit.getComponents())
+        {
+            if (component == nullptr)
+                continue;
+
+            QString typeName = QString::fromStdString(component->getTypeName());
+
+            if (typeName == "voltmeter")
+            {
+                dialog.addVoltmeterOption(component->getId());
+                continue;
+            }//寻找电压表并加入到对应voltageComBox中
+
+            if (typeName == "resistor" || typeName == "bulb")
+                dialog.addTargetOption(component->getId(),QString("%1 #%2").arg(typeName).arg(component->getId()));
+        }
+
+        if (dialog.exec() != QDialog::Accepted)
+            return;
+        //如果界面选择cancel那么就直接不设置，反之则直接生成存储设置结构体改动信息
+
+        CircuitSettings settings = dialog.settings();
+
+        componentAddController->setDefaultBatteryVoltage(settings.batteryVoltage);
+
+        for (auto *component : circuit.getComponents())
+        {
+            auto *battery =dynamic_cast<Battery *>(component);
+
+            if (battery != nullptr)
+                battery->setVoltage(settings.batteryVoltage);
+        }
+
+        if (settings.voltmeterId >= 0 && settings.targetComponentId >= 0)
+        {
+            buildCircuit();
+            auto *meter = dynamic_cast<Voltmeter *>(circuit.findComponentById(settings.voltmeterId));
+            auto *target =circuit.findComponentById(settings.targetComponentId);
+            circuit.connectVoltmeterTo(meter,target);
+        }
+
+        wireManager->clearWires();
+        circuitPrepared = false;
+        statusDock->resetDisplay();
 }
 
 void MainWindow::openGuideDialog()

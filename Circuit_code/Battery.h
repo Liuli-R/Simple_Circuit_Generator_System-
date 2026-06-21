@@ -12,4 +12,5 @@ public:
 
     std::string getTypeName() const override;
     double getVoltage() const;
+    void setVoltage(double Voltage);
 };

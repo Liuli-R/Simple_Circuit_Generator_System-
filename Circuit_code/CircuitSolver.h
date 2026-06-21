@@ -6,7 +6,7 @@
 class Circuit;
 class Component;
 
-class CircuitSolver
+class CircuitSolver //求解器
 {
 public:
     //执行简单的串联电路计算
@@ -22,11 +22,13 @@ private:
     // 获取电压表当前粗略测量到的元件指针。
     Component *findVoltmeterTarget() const;
     // getR/getV/getU 用于简单串联电路的基础计算。
-    double getTotalResistance() const;
-    double getTotalVoltage() const;
-    double getMeasuredResistance() const;
+    double getTotalResistance(const Circuit &circuit) const;
+    double getTotalVoltage(const Circuit &circuit) const;
+    double getMeasuredResistance(const Circuit &circuit) const;
 
     void setAmmeters(double current);
     void setBulbs(bool lit);
     void setVoltmeters(double voltage);
+
+    void resetOutputs();//重置清除结果
 };

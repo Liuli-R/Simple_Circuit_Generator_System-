@@ -15,3 +15,8 @@ double Battery::getVoltage() const
 {
     return voltage;
 }
+
+void Battery::setVoltage(double Voltage)
+{
+    voltage=Voltage;
+}

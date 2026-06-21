@@ -20,3 +20,14 @@ void Voltmeter::setU(double V)
 {
     U = V;
 }
+
+void Voltmeter::setTargetComponentId(int id)
+{
+    targetComponentId = id;
+}
+
+int Voltmeter::getTargetComponentId() const
+{
+    return targetComponentId;
+}
+
