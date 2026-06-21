@@ -14,12 +14,9 @@ public:
     CircuitSolveResult solve(Circuit &circuit, bool switchesClosed);
 
 private:
-    // 获取电压表当前粗略测量到的元件指针。
-    Component *findVoltmeterTarget(const Circuit &circuit) const;
-    // getR/getV/getU 用于简单串联电路的基础计算。
+    //以下是用于简单串联电路的基础计算 计算总电阻 计算总电压->进而有电流
     double getTotalResistance(const Circuit &circuit) const;
     double getTotalVoltage(const Circuit &circuit) const;
-    double getMeasuredResistance(const Circuit &circuit) const;
 
     void setAmmeters(double current,Circuit &circuit);
     void setBulbs(bool lit,Circuit &circuit);

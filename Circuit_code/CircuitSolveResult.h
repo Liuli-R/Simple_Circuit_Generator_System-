@@ -28,11 +28,9 @@ struct CircuitSolveResult//默认设置，默认构造
     double totalVoltage = 0.0;
     double totalResistance = 0.0;
     double current = 0.0;
-    double voltmeterReading = 0.0;
 
     bool hasAmmeter = false;
     bool hasVoltmeter = false;
-    bool voltmeterHasTarget = false;
 
     std::vector<VoltmeterSolveResult> voltmeters;
     //设计初衷 服务于记录可能存在多个电压表同时体现测不同元器件电压

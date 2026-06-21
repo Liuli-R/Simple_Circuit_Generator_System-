@@ -19,6 +19,7 @@
         <file alias="actions.qss">Styles/actions.qss</file>
         <file alias="palette.qss">Styles/palette.qss</file>
         <file alias="dock.qss">Styles/dock.qss</file>
+        <file alias="dialog.qss">Styles/dialog.qss</file>
         <file alias="scrollbar.qss">Styles/scrollbar.qss</file>
     </qresource>
 </RCC>

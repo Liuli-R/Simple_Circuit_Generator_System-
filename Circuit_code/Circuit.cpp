@@ -209,4 +209,5 @@ void Circuit::connectVoltmeterTo(Voltmeter *meter, Component *target)
 
     connectLeft(meter,target->getLeftNodeId());
     connectRight(meter,target->getRightNodeId());
+    meter->setTargetComponentId(target->getId());
 }//人为设置想让电压表测哪一个元器件,Qt端设计发现原先缺失对节点的固定判断

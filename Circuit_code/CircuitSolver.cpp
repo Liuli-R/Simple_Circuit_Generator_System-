@@ -8,33 +8,11 @@
 #include "Component.h"
 #include "CircuitSolveResult.h"
 
-Component *CircuitSolver::findVoltmeterTarget(const Circuit &circuit) const
-{
-    auto ordered = circuit.getComponents();
-    //auto工程好处不用自己进行复杂类型判断 这样写避免多余一次内存开销
-    // 简化判断：查找与电压表左节点相同的元件，返回其类型名。
-    for (auto meter : ordered)
-    {
-        if (meter == nullptr || meter->getTypeName() != "voltmeter")
-            continue;
-
-        for (auto comp : ordered) {
-            //预留优化空间:电压表测多个元器件功能
-            if (comp == nullptr || comp == meter || comp->getTypeName() == "voltmeter") {
-                continue;
-            }
-            if (meter->getLeftNodeId() == comp->getLeftNodeId()) {
-                return comp;
-            }
-        }
-    }
-    return nullptr;
-}
-
 double CircuitSolver::getTotalResistance(const Circuit &circuit) const
 {
     double sum = 0.0;
     for (auto comp : circuit.getComponents()) {
+        //auto工程好处不用自己进行复杂类型判断 这样写避免多余一次内存开销
         // 电压表理想情况下不参与总电阻计算。
         if (comp != nullptr && comp->getTypeName() != "voltmeter" && comp->getTypeName() != "battery")
         {
@@ -54,14 +32,6 @@ double CircuitSolver::getTotalVoltage(const Circuit &circuit) const
         }
     }
     return sum;
-}
-
-double CircuitSolver::getMeasuredResistance(const Circuit &circuit) const
-{
-    auto comp = findVoltmeterTarget(circuit);
-    if (!comp)
-        return -1.0;
-    return comp->getResistance();
 }
 
 //优化内存存储空间
@@ -113,8 +83,6 @@ CircuitSolveResult CircuitSolver::solve(Circuit &targetedCircuit, bool switchesC
     result.hasVoltmeter = targetedCircuit.hasVoltmeter();
     result.totalVoltage = getTotalVoltage(targetedCircuit);
     result.totalResistance = getTotalResistance(targetedCircuit);
-    double measuredResistance = getMeasuredResistance(targetedCircuit);
-    result.voltmeterHasTarget = measuredResistance >= 0.0;
 
     if (!switchesClosed || !targetedCircuit.isClosedLoop())
     {
@@ -141,9 +109,28 @@ CircuitSolveResult CircuitSolver::solve(Circuit &targetedCircuit, bool switchesC
     setAmmeters(result.current,targetedCircuit);
     setBulbs(true,targetedCircuit);
 
-    if(result.voltmeterHasTarget)
-        result.voltmeterReading=measuredResistance * result.current;
-    setVoltmeters(result.voltmeterReading,targetedCircuit);
+    for (auto *component : targetedCircuit.getComponents())
+    {
+        auto *meter = dynamic_cast<Voltmeter *>(component);
+
+        if (meter == nullptr)
+            continue;
+
+        auto *target = targetedCircuit.findComponentById(meter->getTargetComponentId());
+
+        VoltmeterSolveResult meterResult;
+        meterResult.voltmeterId = meter->getId();
+
+        if (target != nullptr)
+        {
+            meterResult.hasTarget = true;
+            meterResult.targetComponentId = target->getId();
+            meterResult.reading = target->getResistance() * result.current;
+        }
+
+        meter->setU(meterResult.reading);
+        result.voltmeters.push_back(meterResult);
+    }//思路优化->由单一电压表记录提升为支持多个电压表记录
 
     result.state = CircuitRunState::Running;
     return result;

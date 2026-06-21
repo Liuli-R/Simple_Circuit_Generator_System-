@@ -13,6 +13,7 @@ QString loadApplicationStyleSheet()
         ":/styles/actions.qss",
         ":/styles/palette.qss",
         ":/styles/dock.qss",
+        ":/styles/dialog.qss",
         ":/styles/scrollbar.qss"
     };
 

@@ -1,0 +1,157 @@
+QDialog#CircuitSettingsDialog
+{
+    background-color: #fffaf0;
+    color: #5e3a12;
+    font-size: 10pt;
+}
+
+QDialog#CircuitSettingsDialog QWidget#formPanel,
+QDialog#CircuitSettingsDialog QWidget#parameterWidget
+{
+    background-color: transparent;
+}
+
+QDialog#CircuitSettingsDialog QLabel#pictureLabel
+{
+    background-color: #ffffff;
+    border: 1px solid #edc77a;
+    border-radius: 8px;
+}
+
+QDialog#CircuitSettingsDialog QFrame#verticalSeparator
+{
+    background-color: #e9b85d;
+    border: none;
+    min-width: 1px;
+    max-width: 1px;
+}
+
+QDialog#CircuitSettingsDialog QLabel#dialogTitleLabel
+{
+    color: #9a4d0b;
+    font-size: 14pt;
+    font-weight: bold;
+    padding-bottom: 4px;
+}
+
+QDialog#CircuitSettingsDialog QLabel#voltageLabel,
+QDialog#CircuitSettingsDialog QLabel#voltmeterLabel,
+QDialog#CircuitSettingsDialog QLabel#targetLabel
+{
+    color: #704214;
+    font-weight: bold;
+}
+
+QDialog#CircuitSettingsDialog QComboBox,
+QDialog#CircuitSettingsDialog QDoubleSpinBox
+{
+    background-color: #ffffff;
+    border: 1px solid #dfbd76;
+    border-radius: 6px;
+    color: #4a341d;
+    padding: 5px 9px;
+    selection-background-color: #f2aa45;
+    selection-color: #ffffff;
+}
+
+QDialog#CircuitSettingsDialog QComboBox
+{
+    padding-right: 30px;
+}
+
+QDialog#CircuitSettingsDialog QComboBox:hover,
+QDialog#CircuitSettingsDialog QDoubleSpinBox:hover
+{
+    border-color: #d8952d;
+    background-color: #fffdf8;
+}
+
+QDialog#CircuitSettingsDialog QComboBox:focus
+{
+    border: 2px solid #e49a32;
+    padding: 4px 29px 4px 8px;
+}
+
+QDialog#CircuitSettingsDialog QDoubleSpinBox:focus
+{
+    border: 2px solid #e49a32;
+    padding: 4px 8px;
+}
+
+QDialog#CircuitSettingsDialog QComboBox QAbstractItemView
+{
+    background-color: #ffffff;
+    border: 1px solid #dfbd76;
+    color: #4a341d;
+    outline: none;
+    selection-background-color: #fff0c9;
+    selection-color: #7a3e0b;
+    padding: 4px;
+}
+
+QDialog#CircuitSettingsDialog QDoubleSpinBox::up-button,
+QDialog#CircuitSettingsDialog QDoubleSpinBox::down-button
+{
+    subcontrol-origin: border;
+    width: 24px;
+    background-color: #fff7e8;
+    border: none;
+    border-left: 1px solid #efd39b;
+}
+
+QDialog#CircuitSettingsDialog QDoubleSpinBox::up-button
+{
+    subcontrol-position: top right;
+    border-bottom: 1px solid #efd39b;
+    border-top-right-radius: 5px;
+}
+
+QDialog#CircuitSettingsDialog QDoubleSpinBox::down-button
+{
+    subcontrol-position: bottom right;
+    border-bottom-right-radius: 5px;
+}
+
+QDialog#CircuitSettingsDialog QDoubleSpinBox::up-button:hover,
+QDialog#CircuitSettingsDialog QDoubleSpinBox::down-button:hover
+{
+    background-color: #ffe7b8;
+}
+
+QDialog#CircuitSettingsDialog QLabel#hintLabel
+{
+    color: #b45309;
+    background-color: rgba(245, 158, 11, 24);
+    border-radius: 5px;
+    padding: 5px 8px;
+}
+
+QDialog#CircuitSettingsDialog QDialogButtonBox QPushButton
+{
+    min-width: 78px;
+    min-height: 30px;
+    background-color: #ffffff;
+    border: 1px solid #dfbd76;
+    border-radius: 6px;
+    color: #704214;
+    font-weight: bold;
+    padding: 3px 12px;
+}
+
+QDialog#CircuitSettingsDialog QDialogButtonBox QPushButton:hover
+{
+    background-color: #fff0c9;
+    border-color: #d8952d;
+}
+
+QDialog#CircuitSettingsDialog QDialogButtonBox QPushButton:pressed
+{
+    background-color: #ffdda0;
+}
+
+QDialog#CircuitSettingsDialog QDialogButtonBox QPushButton:default
+{
+    background-color: #e89a2f;
+    border-color: #d1841e;
+    color: #ffffff;
+}

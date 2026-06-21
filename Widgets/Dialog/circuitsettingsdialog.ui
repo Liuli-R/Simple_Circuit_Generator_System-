@@ -219,7 +219,7 @@
               <bool>false</bool>
              </property>
              <property name="suffix">
-              <string>V</string>
+              <string> V</string>
              </property>
              <property name="minimum">
               <double>0.100000000000000</double>
