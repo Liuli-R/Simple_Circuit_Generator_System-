@@ -12,11 +12,14 @@ class GuideDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit GuideDialog(QWidget *parent = nullptr);
+    GuideDialog(QWidget *parent = nullptr);
     ~GuideDialog() override;
 
 private:
-    Ui::GuideDialog *ui;
+    void setupPicture();
+    void loadGuideContent();//加载说明内容文本
+
+    Ui::GuideDialog *ui = nullptr;
 };
 
-#endif // GUIDEDIALOG_H
+#endif

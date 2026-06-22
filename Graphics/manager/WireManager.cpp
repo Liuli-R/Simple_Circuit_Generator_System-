@@ -35,6 +35,7 @@ void WireManager::clearWires()
 void WireManager::drawSeriesWires(const Circuit &circuit, const ComponentItemManager &itemManager)
 {
     auto components = circuit.getMainLoopComponents();
+    QPointF start,end;
 
     if (components.size() < 2)//边界处理
         return;
@@ -52,9 +53,21 @@ void WireManager::drawSeriesWires(const Circuit &circuit, const ComponentItemMan
         if (currentItem == nullptr || nextItem == nullptr)
             continue;
 
-        QPointF start = currentItem->rightPointScenePos();
-        QPointF end = nextItem->leftPointScenePos();
-
+        if(i<components.size()-2)
+        {
+            start = currentItem->rightPointScenePos();
+            end = nextItem->leftPointScenePos();
+        }
+        else if(i==components.size()-2)
+        {
+            start = currentItem->rightPointScenePos();
+            end = nextItem->rightPointScenePos();
+        }
+        else
+        {
+            start = currentItem->leftPointScenePos();
+            end = nextItem->leftPointScenePos();
+        }
         auto *wire = scene->addLine(QLineF(start, end), wirePen);
         wire->setZValue(-1);//设置其显示在元器件图层之下
 

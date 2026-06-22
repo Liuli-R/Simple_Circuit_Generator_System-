@@ -1,0 +1,81 @@
+QDialog#GuideDialog
+{
+    background-color: #fffaf0;
+    color: #5e3a12;
+    font-size: 10pt;
+}
+
+QDialog#GuideDialog QWidget#contentPanel
+{
+    background-color: transparent;
+}
+
+QDialog#GuideDialog QLabel#guidePictureLabel
+{
+    background-color: #fff3dc;
+    border: 2px solid #edbb61;
+    border-radius: 14px;
+    padding: 3px;
+}
+
+QDialog#GuideDialog QFrame#verticalSeparator
+{
+    background-color: #e9b85d;
+    border: none;
+    min-width: 1px;
+    max-width: 1px;
+}
+
+QDialog#GuideDialog QLabel#guideTitleLabel
+{
+    background-color: transparent;
+    color: #9a4d0b;
+    font-size: 15pt;
+    font-weight: bold;
+    padding: 5px 8px 9px 8px;
+}
+
+QDialog#GuideDialog QTextBrowser#guideBrowser
+{
+    background-color: rgba(255, 255, 255, 238);
+    border: 1px solid #e4c27c;
+    border-radius: 7px;
+    color: #4a341d;
+    padding: 10px 12px;
+    selection-background-color: #f2aa45;
+    selection-color: #ffffff;
+}
+
+QDialog#GuideDialog QTextBrowser#guideBrowser:focus
+{
+    border-color: #d8952d;
+}
+
+QDialog#GuideDialog QDialogButtonBox QPushButton
+{
+    min-width: 88px;
+    min-height: 31px;
+    background-color: #e89a2f;
+    border: 1px solid #d1841e;
+    border-radius: 6px;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 3px 14px;
+}
+
+QDialog#GuideDialog QDialogButtonBox QPushButton:hover
+{
+    background-color: #f0aa42;
+    border-color: #c97917;
+}
+
+QDialog#GuideDialog QDialogButtonBox QPushButton:pressed
+{
+    background-color: #d98922;
+}
+
+QDialog#GuideDialog QDialogButtonBox QPushButton:focus
+{
+    border: 2px solid #b96a12;
+    padding: 2px 13px;
+}

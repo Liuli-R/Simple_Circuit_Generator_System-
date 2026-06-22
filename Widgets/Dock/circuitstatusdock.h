@@ -17,7 +17,7 @@ class CircuitStatusDock : public QDockWidget
     Q_OBJECT
 
 public:
-    explicit CircuitStatusDock(QWidget *parent = nullptr);
+    CircuitStatusDock(QWidget *parent = nullptr);
     ~CircuitStatusDock() override;
 
     //根据一次完整的电路计算结果更新显示五组显示信息

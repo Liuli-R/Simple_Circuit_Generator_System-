@@ -14,6 +14,7 @@
         <file>Cpp_Practice_Picture/Loading.gif</file>
         <file>Cpp_Practice_Picture/Point_Introdution.png</file>
         <file>Cpp_Practice_Picture/Point_Introduction_Portrait.png</file>
+        <file>Cpp_Practice_Picture/Guide.png</file>
         <file>Cpp_Practice_Picture/spin-up.svg</file>
         <file>Cpp_Practice_Picture/spin-down.svg</file>
     </qresource>
@@ -23,6 +24,7 @@
         <file alias="palette.qss">Styles/palette.qss</file>
         <file alias="dock.qss">Styles/dock.qss</file>
         <file alias="dialog.qss">Styles/dialog.qss</file>
+        <file alias="guide.qss">Styles/guide.qss</file>
         <file alias="scrollbar.qss">Styles/scrollbar.qss</file>
     </qresource>
 </RCC>

@@ -14,6 +14,7 @@ QString loadApplicationStyleSheet()
         ":/styles/palette.qss",
         ":/styles/dock.qss",
         ":/styles/dialog.qss",
+        ":/styles/guide.qss",
         ":/styles/scrollbar.qss"
     };
 

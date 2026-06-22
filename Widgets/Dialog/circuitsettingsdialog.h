@@ -22,7 +22,7 @@ class CircuitSettingsDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit CircuitSettingsDialog(QWidget *parent = nullptr);
+    CircuitSettingsDialog(QWidget *parent = nullptr);
     ~CircuitSettingsDialog() override;
 
     void setInitialVoltage(double voltage);

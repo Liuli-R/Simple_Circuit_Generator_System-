@@ -14,7 +14,7 @@ class TopActionWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit TopActionWidget(QWidget *parent = nullptr);
+    TopActionWidget(QWidget *parent = nullptr);
     ~TopActionWidget();
 
     void setRunAction(QAction *action);
