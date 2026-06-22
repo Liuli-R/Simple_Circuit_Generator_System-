@@ -90,6 +90,11 @@ qt_add_executable(Simple_Circuit_Generator_System
     Widgets/TopBar/topactionwidget.ui
 
     Circuit_code/CircuitSolveResult.h
+
+    Graphics/layout/circuitlayoutbuilder.h
+    Graphics/layout/circuitlayoutbuilder.cpp
+    Graphics/layout/ComponentLayout.h
+    Graphics/layout/CircuitLayout.h
 )
 
 target_link_libraries(Simple_Circuit_Generator_System

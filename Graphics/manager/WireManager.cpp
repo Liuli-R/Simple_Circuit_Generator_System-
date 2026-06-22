@@ -1,18 +1,13 @@
 #include "WireManager.h"
-
-#include "Circuit_code/Circuit.h"
-#include "Circuit_code/Component.h"
-#include "Graphics/items/ComponentItem.h"
 #include "Graphics/manager/ComponentItemManager.h"
+#include "Graphics/layout/CircuitLayout.h"
 
 #include <QColor>
-#include <QGraphicsLineItem>
+#include <QGraphicsPathItem>
 #include <QGraphicsScene>
 #include <QLineF>
 #include <QPen>
 #include <QPointF>
-
-#include <cstddef>
 
 WireManager::WireManager(QGraphicsScene *scene)
     : scene(scene)
@@ -32,45 +27,72 @@ void WireManager::clearWires()
     wireItems.clear();
 }
 
-void WireManager::drawSeriesWires(const Circuit &circuit, const ComponentItemManager &itemManager)
+void WireManager::drawSeriesWires(const CircuitLayout &layout)
 {
-    auto components = circuit.getMainLoopComponents();
-    QPointF start,end;
+    const auto &items = layout.orderedItems;
 
-    if (components.size() < 2)//边界处理
+    if (scene == nullptr || items.empty())
         return;
 
-    QPen wirePen(QColor(31, 41, 55), 2.2, Qt::SolidLine, Qt::RoundCap);
+    QPen wirePen(QColor(31, 41, 55), 2.2);
+    wirePen.setCapStyle(Qt::RoundCap);
+    wirePen.setJoinStyle(Qt::RoundJoin);
 
-    for (std::size_t i = 0; i < components.size(); i++)
+    for (std::size_t i = 0; i < items.size(); ++i)
     {
-        Component *current = components[i];
-        Component *next = components[(i + 1) % components.size()];//与Node同思路闭合画线
+        const auto &current = items[i];
+        const auto &next = items[(i + 1) % items.size()];
 
-        ComponentItem *currentItem = itemManager.findItemByComponentId(current->getId());
-        ComponentItem *nextItem = itemManager.findItemByComponentId(next->getId());
+        bool currentLeftToRight = (current.rowIndex % 2 == 0);
+        bool nextLeftToRight = (next.rowIndex % 2 == 0);
+        //辅助判断连接顺序
+        bool closingWire = (i == items.size() - 1);
 
-        if (currentItem == nullptr || nextItem == nullptr)
-            continue;
+        QPointF start = currentLeftToRight ? current.rightPoint : current.leftPoint;
+        QPointF end = nextLeftToRight ? next.leftPoint : next.rightPoint;
+        //判断连接点究竟是哪一个
 
-        if(i<components.size()-2)
+        QPainterPath path(start);
+
+        if (closingWire)
         {
-            start = currentItem->rightPointScenePos();
-            end = nextItem->leftPointScenePos();
+            if (currentLeftToRight)
+            {
+                //最后一行向右结束，需要从底部绕回第一行左侧
+                path.lineTo(layout.rightRouteX, start.y());
+                path.lineTo(layout.rightRouteX, layout.bottomRouteY);
+                path.lineTo(layout.leftRouteX, layout.bottomRouteY);
+                path.lineTo(layout.leftRouteX, end.y());
+                //以上均为设置折线路径
+            }
+            else
+            {
+                //最后一行向左结束，直接沿左侧返回
+                path.lineTo(layout.leftRouteX, start.y());
+                path.lineTo(layout.leftRouteX, end.y());
+            }
         }
-        else if(i==components.size()-2)
+        else if (current.rowIndex == next.rowIndex)
         {
-            start = currentItem->rightPointScenePos();
-            end = nextItem->rightPointScenePos();
+            //同一行，在两个元器件中间进行直角转折
+            qreal middleX = (start.x() + end.x()) / 2.0;
+
+            path.lineTo(middleX, start.y());
+            path.lineTo(middleX, end.y());
         }
         else
         {
-            start = currentItem->leftPointScenePos();
-            end = nextItem->leftPointScenePos();
-        }
-        auto *wire = scene->addLine(QLineF(start, end), wirePen);
-        wire->setZValue(-1);//设置其显示在元器件图层之下
+            //从当前行末端转入下一行
+            qreal routeX = currentLeftToRight ? layout.rightRouteX : layout.leftRouteX;
 
+            path.lineTo(routeX, start.y());
+            path.lineTo(routeX, end.y());
+        }
+
+        path.lineTo(end);//不做特殊处理直接连回end点
+
+        auto *wire = scene->addPath(path, wirePen);
+        wire->setZValue(-1);//覆盖层级设置导线为元器件下方
         wireItems.push_back(wire);
     }
 }

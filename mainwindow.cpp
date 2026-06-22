@@ -6,6 +6,8 @@
 #include "Graphics/manager/ComponentItemManager.h"
 #include "Graphics/manager/WireManager.h"
 #include "Graphics/items/BulbItem.h"
+#include "Graphics/layout/CircuitLayout.h"
+#include "Graphics/layout/circuitlayoutbuilder.h"
 #include "Circuit_code/Bulb.h"
 #include "Circuit_code/switch.h"
 #include "Circuit_code/Battery.h"
@@ -155,16 +157,18 @@ bool MainWindow::isCircuitClosed() const
     return circuit.isClosedLoop() && areAllSwitchesClosed() && circuit.hasBattery();
 }//统一判断多个条件是否满足成立电路运行
 
-void MainWindow::buildCircuit()
+CircuitLayout MainWindow::buildCircuit()
 {
-    circuit.buildClosedLoop();
+    CircuitLayoutBuilder builder;
+    CircuitLayout layout = builder.build(circuit,*itemManager,scene->sceneRect());
+    circuit.buildClosedLoop(layout.orderedComponentIds());
+    return layout;
 }
 
 void MainWindow::runCircuit()
 {
-    buildCircuit();
     wireManager->clearWires();
-    wireManager->drawSeriesWires(circuit, *itemManager);
+    wireManager->drawSeriesWires(buildCircuit());
     auto result=solver.solve(circuit, areAllSwitchesClosed());
     statusDock->updateResult(result);
     updateScene();

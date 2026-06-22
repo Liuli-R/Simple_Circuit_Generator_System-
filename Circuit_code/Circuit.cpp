@@ -157,29 +157,20 @@ bool Circuit::isClosedLoop() const
     return ordered.size() == activeComponents.size() && curNode == startNodeId;
 }
 
-bool Circuit::buildClosedLoop()
-{
-    //连通排序容器与旧版CircuitModel的orderedComponents相似
-    std::vector<Component *> activeComponents;
-
-    // 自动构造闭环时同样排除电压表，只处理主串联回路。
-    for (auto comp : components) {
-        if (comp && comp->getTypeName() != "voltmeter") {
-            activeComponents.push_back(comp);
-        }
-    }
-
-    if (activeComponents.empty() || nodes.empty())
+bool Circuit::buildClosedLoop(const std::vector<int> orderedIds)
+{//边界处理防止电压表混入
+    if (orderedIds.empty() || nodes.empty())
         return false;
-    if (activeComponents.size() != nodes.size())
+    if (orderedIds.size() != nodes.size())
         return false;
 
-    for (std::size_t i = 0; i < activeComponents.size(); i++)
-    {// 按添加顺序连接：第 i 个元件连接第 i 个节点和下一个节点，最后连回第一个节点。
-        int leftNodeId = nodes[i]->getId();
-        int rightNodeId = nodes[(i + 1) % nodes.size()]->getId();
-        connectLeft(activeComponents[i], leftNodeId);
-        connectRight(activeComponents[i], rightNodeId);
+    for (std::size_t i = 0; i < orderedIds.size(); i++)
+    {//按最终画布上元器件按排布顺序->进行连接端点判断
+        auto comp = findComponentById(orderedIds[i]);
+        if (comp == nullptr  && comp->getTypeName() == "voltmeter")
+            return false;
+        connectLeft(comp,nodes[i]->getId());
+        connectRight(comp,nodes[(i+1)%nodes.size()]->getId());
     }
 
     return true;

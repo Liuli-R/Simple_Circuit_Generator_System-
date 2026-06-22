@@ -4,8 +4,9 @@
 #include <vector>
 
 class Circuit;
+struct CircuitLayout;
 class ComponentItemManager;
-class QGraphicsLineItem;
+class QGraphicsPathItem;
 class QGraphicsScene;
 
 class WireManager
@@ -14,11 +15,12 @@ public:
     explicit WireManager(QGraphicsScene *scene);
 
     void clearWires();
-    void drawSeriesWires(const Circuit &circuit, const ComponentItemManager &itemManager);
+    void drawSeriesWires(const CircuitLayout &layout);
 
 private:
     QGraphicsScene *scene = nullptr;
-    std::vector<QGraphicsLineItem *> wireItems;
+    std::vector<QGraphicsPathItem *> wireItems;
+    //大更新->优化导线显示为直角导线所以需要Path类
 };
 
 #endif // WIREMANAGER_H

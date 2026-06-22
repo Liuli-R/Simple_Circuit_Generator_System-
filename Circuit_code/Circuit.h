@@ -38,8 +38,8 @@ public:
     bool hasVoltmeter() const;
     //判断当前元件是否形成简单闭合串联回路
     bool isClosedLoop() const;
-    //按元件和节点的添加顺序自动构造一个简单串联闭环
-    bool buildClosedLoop();
+    //按实际画布的元器件顺序自动构造一个简单串联闭环
+    bool buildClosedLoop(const std::vector<int> orderedIds);
     //合并CircuitModel原先职能的一部分操作
     Component *findComponentById(int id) const;//根据id查找元器件
     int getComponentCount() const;

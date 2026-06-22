@@ -13,6 +13,7 @@ class ComponentItemManager;
 class WireManager;
 class TopActionWidget;
 class CircuitStatusDock;
+struct CircuitLayout;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -35,7 +36,7 @@ public:
     bool areAllSwitchesClosed() const;
     bool isCircuitClosed() const;
 
-    void buildCircuit();
+    CircuitLayout buildCircuit();//由void->改为CircuitLayout构建布局
     void runCircuit();//运行电路整合
     void clearCircuit();//清空电路重新来过
     void updateCircuitState();//更新电路运行状态
