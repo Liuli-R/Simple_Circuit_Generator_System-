@@ -27,4 +27,7 @@
         <file alias="guide.qss">Styles/guide.qss</file>
         <file alias="scrollbar.qss">Styles/scrollbar.qss</file>
     </qresource>
+    <qresource prefix="/docs">
+        <file alias="guide.md">Docs/guide.md</file>
+    </qresource>
 </RCC>

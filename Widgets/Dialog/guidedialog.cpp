@@ -10,8 +10,7 @@ GuideDialog::GuideDialog(QWidget *parent): QDialog(parent)
     , ui(new Ui::GuideDialog)
 {
     ui->setupUi(this);
-    ui->horizontalLayout->setAlignment(ui->guidePictureLabel,
-                                       Qt::AlignVCenter);
+    ui->horizontalLayout->setAlignment(ui->guidePictureLabel,Qt::AlignVCenter);
 
     ui->guideBrowser->setOpenExternalLinks(true);
     //允许打开对应网址连接->当前默认浏览器允许访问
