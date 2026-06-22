@@ -6,8 +6,6 @@
 #include "Circuit_code/Ammeter.h"
 #include "Circuit_code/Voltmeter.h"
 
-#include <cstddef>
-#include <map>
 #include <vector>
 
 Circuit::Circuit()
