@@ -10,6 +10,7 @@
 #include "Circuit_code/switch.h"
 #include "Circuit_code/Battery.h"
 #include "Circuit_code/Voltmeter.h"
+#include "Circuit_code/Fixed_resistor.h"
 #include "Widgets/TopBar/topactionwidget.h"
 #include "Widgets/Palette/componentpalettewidget.h"
 #include "Widgets/Dock/circuitstatusdock.h"
@@ -223,6 +224,12 @@ void MainWindow::openSettingsDialog()
                 continue;
             }//寻找电压表并加入到对应voltageComBox中
 
+            if (typeName == "resistor")
+            {
+                dialog.addResistorOption(component->getId());
+                continue;
+            }//寻找定值电阻并加入到对应resistorComBox中
+
             if (typeName == "resistor" || typeName == "bulb")
                 dialog.addTargetOption(component->getId(),QString("%1 #%2").arg(typeName).arg(component->getId()));
         }
@@ -249,6 +256,14 @@ void MainWindow::openSettingsDialog()
             auto *meter = dynamic_cast<Voltmeter *>(circuit.findComponentById(settings.voltmeterId));
             auto *target =circuit.findComponentById(settings.targetComponentId);
             circuit.connectVoltmeterTo(meter,target);
+        }
+
+        if (settings.resistorId >= 0)
+        {
+            auto *resistor = dynamic_cast<Fixed_resistor *>(circuit.findComponentById(settings.resistorId));
+
+            if (resistor != nullptr)
+                resistor->setResistance(settings.resistance);
         }
 
         wireManager->clearWires();

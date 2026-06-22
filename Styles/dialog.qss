@@ -13,7 +13,7 @@ QDialog#CircuitSettingsDialog QWidget#parameterWidget
 
 QDialog#CircuitSettingsDialog QLabel#pictureLabel
 {
-    background-color: #ffffff;
+    background-color: #fffaf0;
     border: 1px solid #edc77a;
     border-radius: 8px;
 }
@@ -36,7 +36,9 @@ QDialog#CircuitSettingsDialog QLabel#dialogTitleLabel
 
 QDialog#CircuitSettingsDialog QLabel#voltageLabel,
 QDialog#CircuitSettingsDialog QLabel#voltmeterLabel,
-QDialog#CircuitSettingsDialog QLabel#targetLabel
+QDialog#CircuitSettingsDialog QLabel#targetLabel,
+QDialog#CircuitSettingsDialog QLabel#resistorLabel,
+QDialog#CircuitSettingsDialog QLabel#resistanceLabel
 {
     color: #704214;
     font-weight: bold;
@@ -89,6 +91,30 @@ QDialog#CircuitSettingsDialog QComboBox QAbstractItemView
     padding: 4px;
 }
 
+QDialog#CircuitSettingsDialog QComboBox::drop-down
+{
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+    width: 28px;
+    background-color: #fff7e8;
+    border: none;
+    border-left: 1px solid #efd39b;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+QDialog#CircuitSettingsDialog QComboBox::drop-down:hover
+{
+    background-color: #ffe7b8;
+}
+
+QDialog#CircuitSettingsDialog QComboBox::down-arrow
+{
+    image: url(:/Cpp_Practice_Picture/spin-down.svg);
+    width: 10px;
+    height: 7px;
+}
+
 QDialog#CircuitSettingsDialog QDoubleSpinBox::up-button,
 QDialog#CircuitSettingsDialog QDoubleSpinBox::down-button
 {
@@ -116,6 +142,20 @@ QDialog#CircuitSettingsDialog QDoubleSpinBox::up-button:hover,
 QDialog#CircuitSettingsDialog QDoubleSpinBox::down-button:hover
 {
     background-color: #ffe7b8;
+}
+
+QDialog#CircuitSettingsDialog QDoubleSpinBox::up-arrow
+{
+    image: url(:/Cpp_Practice_Picture/spin-up.svg);
+    width: 10px;
+    height: 7px;
+}
+
+QDialog#CircuitSettingsDialog QDoubleSpinBox::down-arrow
+{
+    image: url(:/Cpp_Practice_Picture/spin-down.svg);
+    width: 10px;
+    height: 7px;
 }
 
 QDialog#CircuitSettingsDialog QLabel#hintLabel

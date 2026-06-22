@@ -13,6 +13,9 @@
         <file>Cpp_Practice_Picture/operation.png</file>
         <file>Cpp_Practice_Picture/Loading.gif</file>
         <file>Cpp_Practice_Picture/Point_Introdution.png</file>
+        <file>Cpp_Practice_Picture/Point_Introduction_Portrait.png</file>
+        <file>Cpp_Practice_Picture/spin-up.svg</file>
+        <file>Cpp_Practice_Picture/spin-down.svg</file>
     </qresource>
     <qresource prefix="/styles">
         <file alias="base.qss">Styles/base.qss</file>

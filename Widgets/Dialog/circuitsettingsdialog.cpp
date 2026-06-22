@@ -15,6 +15,8 @@ CircuitSettingsDialog::CircuitSettingsDialog(QWidget *parent)
     可以最终模态确定其结果再更新数据，否则将实时更新数据，与目标不符，且占用开销*/
     ui->voltmeterComboBox->setPlaceholderText("请选择电压表");
     ui->targetComboBox->setPlaceholderText("请选择测量目标");
+    ui->resistorComboBox->setPlaceholderText("请选择电阻");
+    ui->horizontalLayout->setAlignment(ui->pictureLabel,Qt::AlignVCenter);
     //添加默认灰色字代表初始->文字提示
     setupPicture();
 
@@ -32,9 +34,19 @@ void CircuitSettingsDialog::setInitialVoltage(double voltage)
     ui->voltageSpinBox->setValue(voltage);
 }
 
+void CircuitSettingsDialog::setInitialResistance(double resistance)
+{
+    ui->resistanceSpinBox->setValue(resistance);
+}
+
 void CircuitSettingsDialog::addVoltmeterOption(int componentId)
 {
     ui->voltmeterComboBox->addItem(QString("电压表 #%1").arg(componentId),componentId);
+}
+
+void CircuitSettingsDialog::addResistorOption(int componentId)
+{
+    ui->resistorComboBox->addItem(QString("定值电阻 #%1").arg(componentId),componentId);
 }
 
 void CircuitSettingsDialog::addTargetOption(int componentId,const QString &displayText)
@@ -47,6 +59,7 @@ CircuitSettings CircuitSettingsDialog::settings() const
     CircuitSettings result;
 
     result.batteryVoltage = ui->voltageSpinBox->value();
+    result.resistance = ui->resistanceSpinBox->value();
 
     if (ui->voltmeterComboBox->currentIndex() >= 0)//currentData返回的是QVariant转换成int
         result.voltmeterId = ui->voltmeterComboBox->currentData().toInt();
@@ -54,6 +67,8 @@ CircuitSettings CircuitSettingsDialog::settings() const
     if (ui->targetComboBox->currentIndex() >= 0)
         result.targetComponentId = ui->targetComboBox->currentData().toInt();
 
+    if (ui->resistorComboBox->currentIndex() >= 0)
+        result.resistorId = ui->resistorComboBox->currentData().toInt();
     return result;
 }
 
@@ -77,7 +92,7 @@ void CircuitSettingsDialog::validateAndAccept()
 
 void CircuitSettingsDialog::setupPicture()
 {
-    QPixmap picture(":/Cpp_Practice_Picture/Point_Introdution.png");
+    QPixmap picture(":/Cpp_Practice_Picture/Point_Introduction_Portrait.png");
 
     if (picture.isNull())
     {
@@ -85,5 +100,5 @@ void CircuitSettingsDialog::setupPicture()
         return;
     }
 
-    ui->pictureLabel->setPixmap(picture.scaled(190,280,Qt::KeepAspectRatio,Qt::SmoothTransformation));
+    ui->pictureLabel->setPixmap(picture.scaled(200,300,Qt::KeepAspectRatio,Qt::SmoothTransformation));
 }
