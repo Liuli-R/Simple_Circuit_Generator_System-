@@ -5,16 +5,17 @@
 
 class Circuit;
 struct CircuitLayout;
-class ComponentItemManager;
 class QGraphicsPathItem;
 class QGraphicsScene;
+class ComponentItemManager;
 
 class WireManager
 {
 public:
-    explicit WireManager(QGraphicsScene *scene);
+    WireManager(QGraphicsScene *scene);
 
     void clearWires();
+    void drawVoltmeterWires(const Circuit &circuit,const ComponentItemManager &itemManager);
     void drawSeriesWires(const CircuitLayout &layout);
 
 private:

@@ -169,6 +169,7 @@ void MainWindow::runCircuit()
 {
     wireManager->clearWires();
     wireManager->drawSeriesWires(buildCircuit());
+    wireManager->drawVoltmeterWires(circuit,*itemManager);
     auto result=solver.solve(circuit, areAllSwitchesClosed());
     statusDock->updateResult(result);
     updateScene();
@@ -231,10 +232,11 @@ void MainWindow::openSettingsDialog()
             if (typeName == "resistor")
             {
                 dialog.addResistorOption(component->getId());
+                dialog.addTargetOption(component->getId(),QString("%1 #%2").arg(typeName).arg(component->getId()));
                 continue;
             }//寻找定值电阻并加入到对应resistorComBox中
 
-            if (typeName == "resistor" || typeName == "bulb")
+            if (typeName == "bulb")
                 dialog.addTargetOption(component->getId(),QString("%1 #%2").arg(typeName).arg(component->getId()));
         }
 
@@ -258,8 +260,14 @@ void MainWindow::openSettingsDialog()
         {
             buildCircuit();
             auto *meter = dynamic_cast<Voltmeter *>(circuit.findComponentById(settings.voltmeterId));
-            auto *target =circuit.findComponentById(settings.targetComponentId);
+            auto *target = circuit.findComponentById(settings.targetComponentId);
             circuit.connectVoltmeterTo(meter,target);
+            /*可能出现bug的地方->由于buildClosedLoop是根据实际排布重新排序
+            所以需要做的点就是可能会导模型图形连线重新建立，但是实际元器件并为同步*/
+            //原因是target采用的仍然是原先最开始分配的node节点顺序
+            QPointF targetcenter = itemManager->findItemByComponentId(settings.targetComponentId)
+                ->sceneBoundingRect().center();
+            itemManager->findItemByComponentId(settings.voltmeterId)->setPos(targetcenter.x(),targetcenter.y()-120);
         }
 
         if (settings.resistorId >= 0)

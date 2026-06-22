@@ -12,7 +12,7 @@ CircuitLayout CircuitLayoutBuilder::build(const Circuit &circuit,const Component
 {
     constexpr qreal rowTolerance = 80.0;
     constexpr qreal routeMargin = 30.0;
-    //编译器常量经常运用
+    //编译器常量->对于某一固定常数经常运用
     std::vector<ComponentLayout> items;
 
     for (auto *component : circuit.getMainLoopComponents())

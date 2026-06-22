@@ -1,8 +1,13 @@
 #include "WireManager.h"
-#include "Graphics/manager/ComponentItemManager.h"
+#include "Circuit_code/Circuit.h"
+#include "Circuit_code/Component.h"
+#include "Circuit_code/Voltmeter.h"
 #include "Graphics/layout/CircuitLayout.h"
+#include "Graphics/items/ComponentItem.h"
+#include "Graphics/manager/ComponentItemManager.h"
 
 #include <QColor>
+#include <QPainter>
 #include <QGraphicsPathItem>
 #include <QGraphicsScene>
 #include <QLineF>
@@ -25,6 +30,32 @@ void WireManager::clearWires()
         }
     }
     wireItems.clear();
+}
+
+void WireManager::drawVoltmeterWires(const Circuit &circuit,const ComponentItemManager &itemManager)
+{
+    QPen wirePen(QColor(31, 41, 55), 2.2);
+    for(auto comp:circuit.getComponents())
+    {
+        auto comp1=dynamic_cast<Voltmeter *>(comp);
+        if(comp1==nullptr)
+            continue;
+        int targetId = comp1->getTargetComponentId();
+        if(targetId==-1)
+            continue ;
+        auto meter = itemManager.findItemByComponentId(comp->getId());
+        auto target = itemManager.findItemByComponentId(targetId);
+        QPainterPath path(meter->leftPointScenePos());
+        path.lineTo(target->leftPointScenePos());
+        QPainterPath path1(meter->rightPointScenePos());
+        path1.lineTo(target->rightPointScenePos());
+        auto *wire = scene->addPath(path1,wirePen);
+        wire->setZValue(-1);
+        auto *wire1 = scene->addPath(path,wirePen);
+        wire1->setZValue(-1);
+        wireItems.push_back(wire);
+        wireItems.push_back(wire1);
+    }
 }
 
 void WireManager::drawSeriesWires(const CircuitLayout &layout)
@@ -53,7 +84,7 @@ void WireManager::drawSeriesWires(const CircuitLayout &layout)
         //判断连接点究竟是哪一个
 
         QPainterPath path(start);
-
+        //判断连线路径模式
         if (closingWire)
         {
             if (currentLeftToRight)

@@ -95,6 +95,8 @@ qt_add_executable(Simple_Circuit_Generator_System
     Graphics/layout/circuitlayoutbuilder.cpp
     Graphics/layout/ComponentLayout.h
     Graphics/layout/CircuitLayout.h
+    Circuit_code/CircuitTopology.cpp
+
 )
 
 target_link_libraries(Simple_Circuit_Generator_System
