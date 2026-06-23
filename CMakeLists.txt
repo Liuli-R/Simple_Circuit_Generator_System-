@@ -14,6 +14,7 @@ qt_add_executable(Simple_Circuit_Generator_System
     mainwindow.h
     mainwindow.ui
     res.qrc
+    app_icon.rc
 
     Styles/base.qss
     Styles/actions.qss
@@ -96,7 +97,6 @@ qt_add_executable(Simple_Circuit_Generator_System
     Graphics/layout/ComponentLayout.h
     Graphics/layout/CircuitLayout.h
     Circuit_code/CircuitTopology.cpp
-
 )
 
 target_link_libraries(Simple_Circuit_Generator_System

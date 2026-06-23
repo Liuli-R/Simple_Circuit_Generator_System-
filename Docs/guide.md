@@ -80,6 +80,6 @@
 
 ## 支持我们的项目->点击下面的网址持续关注哟！
 
-1. https://gitee.com/rongwen-huanq/circuit-sketch-builder.git (国内)
-2. https://github.com/Liuli-R/Simple_Circuit_Generator_System-.git (需要科学上网)
+1. https://gitee.com/rongwen-huanq/circuit-sketch-builder.git  (国内)
+2. https://github.com/Liuli-R/Simple_Circuit_Generator_System-.git  (需要科学上网)
 
