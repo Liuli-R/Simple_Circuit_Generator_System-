@@ -1,0 +1,79 @@
+QDockWidget#CircuitStatusDock
+{
+    background-color: #fff6e5;
+    border: 1px solid #e9b85d;
+    color: #5e3a12;
+    font-size: 10pt;
+}
+
+QDockWidget#CircuitStatusDock::title
+{
+    background-color: #ffe9b0;
+    border-bottom: 1px solid #e9b85d;
+    padding: 6px 10px;
+    color: #5e3a12;
+    font-weight: bold;
+    text-align: left;
+}
+
+QDockWidget#CircuitStatusDock QWidget#dockWidgetContents
+{
+    background-color: #fff6e5;
+}
+
+QDockWidget#CircuitStatusDock QFrame#stateFrame
+{
+    background-color: #ffffff;
+    border: 1px solid #edc77a;
+    border-radius: 6px;
+}
+
+QDockWidget#CircuitStatusDock QFrame#stateFrame QLabel
+{
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#stateNameLabel,
+QLabel#totalVoltageNameLabel,
+QLabel#resistanceNameLabel,
+QLabel#currentNameLabel,
+QLabel#voltageNameLabel
+{
+    color: #704214;
+    font-weight: normal;
+}
+
+QLabel#totalVoltageValueLabel,
+QLabel#resistanceValueLabel,
+QLabel#currentValueLabel,
+QLabel#voltageValueLabel
+{
+    color: #24513b;
+    font-weight: bold;
+    padding: 3px 5px;
+}
+
+QLabel#stateValueLabel
+{
+    color: #a94f08;
+    background-color: rgba(245, 158, 11, 35);
+    border: 1px solid rgba(217, 119, 6, 65);
+    border-radius: 4px;
+    padding: 3px 6px;
+    font-weight: bold;
+}
+
+QFrame#separatorLine
+{
+    border: none;
+    background-color: #e9b85d;
+    min-height: 1px;
+    max-height: 1px;
+}
+
+QLabel#gifLabel
+{
+    background-color: transparent;
+    border: none;
+}

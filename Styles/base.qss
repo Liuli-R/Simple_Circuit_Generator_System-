@@ -1,0 +1,42 @@
+QMainWindow,
+QWidget#centralwidget
+{
+    background-color: #fffdf7;
+}
+
+QMenuBar,
+QStatusBar
+{
+    background-color: #fffdf7;
+    color: #5e3a12;
+}
+
+QMenuBar::item
+{
+    background-color: transparent;
+    padding: 5px 14px;
+}
+
+QMenuBar::item:selected
+{
+    background-color: #fff0c9;
+}
+
+QMenu
+{
+    background-color: #ffffff;
+    border: 1px solid #edc77a;
+    color: #5e3a12;
+}
+
+QMenu::item:selected
+{
+    background-color: #fff0c9;
+}
+
+QGraphicsView
+{
+    background-color: rgba(248, 255, 251, 255);
+    border: 1px solid #e4c276;
+    border-radius: 8px;
+}

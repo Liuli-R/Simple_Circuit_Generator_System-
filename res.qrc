@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Cpp_Practice_Picture/Bulb.png</file>
+        <file>Cpp_Practice_Picture/Switch.png</file>
+        <file>Cpp_Practice_Picture/Battery.png</file>
+        <file>Cpp_Practice_Picture/ammeter.png</file>
+        <file>Cpp_Practice_Picture/voltmeter 0-3v.png</file>
+        <file>Cpp_Practice_Picture/voltmeter 0-15v.png</file>
+        <file>Cpp_Practice_Picture/resistor.png</file>
+        <file>Cpp_Practice_Picture/run.png</file>
+        <file>Cpp_Practice_Picture/Tool.png</file>
+        <file>Cpp_Practice_Picture/clear.png</file>
+        <file>Cpp_Practice_Picture/operation.png</file>
+        <file>Cpp_Practice_Picture/Loading.gif</file>
+        <file>Cpp_Practice_Picture/Point_Introdution.png</file>
+        <file>Cpp_Practice_Picture/Point_Introduction_Portrait.png</file>
+        <file>Cpp_Practice_Picture/Guide.png</file>
+        <file>Cpp_Practice_Picture/spin-up.svg</file>
+        <file>Cpp_Practice_Picture/spin-down.svg</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file alias="base.qss">Styles/base.qss</file>
+        <file alias="actions.qss">Styles/actions.qss</file>
+        <file alias="palette.qss">Styles/palette.qss</file>
+        <file alias="dock.qss">Styles/dock.qss</file>
+        <file alias="dialog.qss">Styles/dialog.qss</file>
+        <file alias="guide.qss">Styles/guide.qss</file>
+        <file alias="scrollbar.qss">Styles/scrollbar.qss</file>
+    </qresource>
+    <qresource prefix="/docs">
+        <file alias="guide.md">Docs/guide.md</file>
+    </qresource>
+</RCC>
