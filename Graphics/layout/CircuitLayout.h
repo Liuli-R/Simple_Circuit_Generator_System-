@@ -3,7 +3,7 @@
 
 #include <QPointF>
 #include <QRectF>
-#include "Graphics/layout/componentlayout.h"
+#include "ComponentLayout.h"
 
 struct CircuitLayout
 {

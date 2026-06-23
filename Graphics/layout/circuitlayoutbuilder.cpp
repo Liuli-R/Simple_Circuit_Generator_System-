@@ -1,5 +1,5 @@
 #include "circuitlayoutbuilder.h"
-#include "Graphics/layout/componentlayout.h"
+#include "ComponentLayout.h"
 #include "Graphics/layout/CircuitLayout.h"
 #include "Circuit_code/Circuit.h"
 #include "Graphics/items/ComponentItem.h"

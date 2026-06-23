@@ -9,7 +9,7 @@
 #include "Graphics/layout/CircuitLayout.h"
 #include "Graphics/layout/circuitlayoutbuilder.h"
 #include "Circuit_code/Bulb.h"
-#include "Circuit_code/switch.h"
+#include "Circuit_code/Switch.h"
 #include "Circuit_code/Battery.h"
 #include "Circuit_code/Voltmeter.h"
 #include "Circuit_code/Fixed_resistor.h"
