@@ -92,16 +92,16 @@ void WireManager::drawSeriesWires(const CircuitLayout &layout)
                 //最后一行向右结束，需要从底部绕回第一行左侧
                 path.lineTo(layout.rightRouteX, start.y());
                 path.lineTo(layout.rightRouteX, layout.bottomRouteY);
-                path.lineTo(layout.leftRouteX, layout.bottomRouteY);
-                path.lineTo(layout.leftRouteX, end.y());
+                path.lineTo(layout.closingLeftX, layout.bottomRouteY);
+                path.lineTo(layout.closingLeftX, end.y());
                 //以上均为设置折线路径
             }
             else
             {
                 //最后一行向左结束，直接沿左侧返回
-                path.lineTo(layout.leftRouteX, start.y());
-                path.lineTo(layout.leftRouteX, end.y());
-            }
+                path.lineTo(layout.closingLeftX, start.y());
+                path.lineTo(layout.closingLeftX, end.y());
+            }//以上对最后一次进行特殊处理--->防止出现多行重叠问题虽然不太美观()
         }
         else if (current.rowIndex == next.rowIndex)
         {

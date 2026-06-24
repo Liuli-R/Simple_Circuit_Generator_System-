@@ -12,6 +12,7 @@ CircuitLayout CircuitLayoutBuilder::build(const Circuit &circuit,const Component
 {
     constexpr qreal rowTolerance = 80.0;
     constexpr qreal routeMargin = 30.0;
+    constexpr qreal closingOffset = 18.0;
     //编译器常量->对于某一固定常数经常运用
     std::vector<ComponentLayout> items;
 
@@ -81,6 +82,7 @@ CircuitLayout CircuitLayoutBuilder::build(const Circuit &circuit,const Component
         qMin(sceneRect.right() - 20, totalBounds.right() + routeMargin);
     result.bottomRouteY =
         qMin(sceneRect.bottom() - 20, totalBounds.bottom() + routeMargin);
+    result.closingLeftX = result.leftRouteX - closingOffset;
     //边界处理
     return result;
 }

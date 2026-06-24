@@ -13,6 +13,11 @@ struct CircuitLayout
     qreal rightRouteX = 0.0;//图形右边界+一定距离安全范围
     qreal bottomRouteY = 0.0;//底部边界+一定距离安全范围
 
+    // 最后一条闭环导线专用通道--->做特殊处理防止重叠
+    qreal closingLeftX;
+    qreal closingRightX;
+    qreal closingBottomY;
+
     std::vector<int> orderedComponentIds() const
     {
         std::vector<int> ids;
