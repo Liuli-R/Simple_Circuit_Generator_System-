@@ -7,6 +7,7 @@
 #include "Circuit_code/CircuitSolver.h"
 
 class QAction;
+class QMenu;
 class QGraphicsScene;
 class ComponentAddController;
 class ComponentItemManager;
@@ -56,6 +57,7 @@ private:
     QAction *clearAction = nullptr;
     QAction *settingsAction = nullptr;//电路初始参数设置
     QAction *guideAction = nullptr;//帮助手册
+    QAction *viewAction = nullptr;//重新显示关闭的浮动窗口
     //主界面窗口部件
     TopActionWidget *topActionWidget = nullptr;
     CircuitStatusDock *statusDock = nullptr;

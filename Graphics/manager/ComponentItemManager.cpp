@@ -99,10 +99,10 @@ void ComponentItemManager::layoutItems()
 QPointF ComponentItemManager::defaultPositionForIndex(int index) const
 {
     const int columns = 6;
-    const int spacingX = 145;
-    const int spacingY = 120;
-    const int startX = 110;
-    const int startY = 110;
+    const int spacingX = 160;
+    const int spacingY = 135;
+    const int startX = 125;
+    const int startY = 120;
 
     return QPointF(
         startX + (index % columns) * spacingX,

@@ -8,7 +8,7 @@
 
 CircuitScene::CircuitScene(QObject *parent)
 {
-    setSceneRect(0, 0, 900, 650);
+    setSceneRect(0, 0, 1200, 780);
     //限定画布的范围
 }
 

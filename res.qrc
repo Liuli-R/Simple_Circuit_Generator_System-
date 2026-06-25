@@ -17,6 +17,7 @@
         <file>Cpp_Practice_Picture/Guide.png</file>
         <file>Cpp_Practice_Picture/spin-up.svg</file>
         <file>Cpp_Practice_Picture/spin-down.svg</file>
+        <file>Cpp_Practice_Picture/help.png</file>
     </qresource>
     <qresource prefix="/styles">
         <file alias="base.qss">Styles/base.qss</file>

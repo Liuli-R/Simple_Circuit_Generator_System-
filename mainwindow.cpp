@@ -34,10 +34,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setupScene();
+    setupStatusDock();//顺序不能更改-->否则会影响菜单视图的呈现
     setupActions();
     setupMenus();
     setupTopActionWidget();
-    setupStatusDock();
     setupConnections();
 }
 
@@ -52,6 +52,9 @@ void MainWindow::setupScene()
     componentAddController->setSwitchStateChangedCallback([this](){updateCircuitState();});
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
     ui->graphicsView->setSceneRect(scene->sceneRect());
+    ui->graphicsView->setMinimumSize(760, 560);
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 }
 
 void MainWindow::setupActions()
@@ -70,6 +73,11 @@ void MainWindow::setupActions()
     settingsAction->setToolTip("设置当前电路基本参数");
     settingsAction->setShortcut(QKeySequence("Ctrl+,"));
 
+    viewAction = statusDock->toggleViewAction();//自定义切换面板隐藏or出现
+    viewAction->setText("面板显示");
+    viewAction->setToolTip("显示/隐藏当前计算状态面板");
+    viewAction->setShortcut(QKeySequence("F9"));
+
     guideAction = new QAction(QIcon(":/Cpp_Practice_Picture/help.png"),"使用说明",this);
     guideAction->setToolTip("这里是项目说明呦!");
     guideAction->setShortcut(QKeySequence(Qt::Key_F1));
@@ -79,15 +87,19 @@ void MainWindow::setupMenus()
 {
     QMenu *operationMenu = new QMenu("操作", this);
     QMenu *settingsMenu = new QMenu("设置", this);
+    QMenu *viewMenu = new QMenu("视图", this);
     QMenu *helpMenu = new QMenu("帮助", this);
     operationMenu->addSeparator();
     settingsMenu->addSeparator();
+    viewMenu->addSeparator();
     helpMenu->addSeparator();
     ui->menubar->addMenu(operationMenu);
     ui->menubar->addMenu(settingsMenu);
+    ui->menubar->addMenu(viewMenu);
     ui->menubar->addMenu(helpMenu);
     operationMenu->addAction(runAction);
     operationMenu->addAction(clearAction);
+    viewMenu->addAction(viewAction);
     settingsMenu->addAction(settingsAction);
     helpMenu->addAction(guideAction);
 }

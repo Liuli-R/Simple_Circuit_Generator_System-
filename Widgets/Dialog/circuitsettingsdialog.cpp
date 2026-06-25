@@ -74,18 +74,26 @@ CircuitSettings CircuitSettingsDialog::settings() const
 
 void CircuitSettingsDialog::validateAndAccept()
 {
-    if (ui->voltmeterComboBox->count() > 0 && ui->voltmeterComboBox->currentIndex() < 0)
-    {//ui界面默认初始设置index为-1即代表没有
-        ui->hintLabel->setText("请选择需要设置的电压表");
+    bool hasSelectedVoltmeter = ui->voltmeterComboBox->currentIndex() >= 0;
+    bool hasSelectedTarget = ui->targetComboBox->currentIndex() >= 0;
+    bool hasVoltmeterOptions = ui->voltmeterComboBox->count() > 0;
+    bool hasTargetOptions = ui->targetComboBox->count() > 0;
+    if (hasSelectedTarget && !hasVoltmeterOptions)
+    {
+        ui->hintLabel->setText("当前电路无可用电压表");
         return;
     }
-
-    if (ui->voltmeterComboBox->count() > 0 && ui->targetComboBox->currentIndex() < 0)
-    {//ui界面默认初始设置index为1即代表有
-        ui->hintLabel->setText("请选择电压表的测量目标");
+    if (hasSelectedVoltmeter && !hasTargetOptions)
+    {
+        ui->hintLabel->setText("当前电路无可用测量目标");
         return;
     }
-
+    if(hasSelectedVoltmeter != hasSelectedTarget)
+    {
+        ui->hintLabel->setText("若设置电压表，请同时选择电压表和测量目标");
+        return ;
+    }
+    //更改为更符合用户设计的设置窗口
     ui->hintLabel->clear();
     accept();
 }

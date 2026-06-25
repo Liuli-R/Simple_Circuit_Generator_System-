@@ -66,7 +66,7 @@ void SwitchItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     font.setBold(true);
     painter->setFont(font);
     //百分号起到占位符的通用类似c语言
-    painter->drawText(QRectF(-55, 30, 110, 20), Qt::AlignCenter, QString("Switch #%1 %2").arg(getComponentId()).arg(closed ? "closed" : "open"));
+    painter->drawText(QRectF(-60, 30, 120, 20), Qt::AlignCenter, QString("Switch #%1 %2").arg(getComponentId()).arg(closed ? "closed" : "open"));
 }
 
 void SwitchItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
